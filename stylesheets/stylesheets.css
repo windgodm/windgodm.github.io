@@ -63,16 +63,25 @@ body {
 
 .index-f {
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#80ff80), to(#80ff80));
+	width: 90px;
 	-webkit-border-radius: 4px;
 	opacity:0.75;
 	position: fixed;
-	top: 400;
+	top: 360;
 	right: 20;
+	text-align: center;
 }
 .index-f a {
-	font-size: 1.25rem;
 	color: #0000ff;
 	text-decoration: none;
+}
+	
+	
+.font-sizs1 {
+	font-size: 1.25rem;
+}
+.font-size2 {
+	font-size: 1rem;
 }
 	
 	
