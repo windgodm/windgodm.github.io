@@ -8,10 +8,10 @@ body {
 
 
 .index-hbg {
-  color: #fff;
+  color: #ffffff;
   text-align: center;
-  background-color: #159957;
-  background-image: linear-gradient(120deg, #155799, #159957); }
+  background-color: #ff80ff;
+  background-image: linear-gradient(30deg, #8080ff, #ff80ff); }
 
 @media screen and (min-width: 64em) {
   .index-hbg {
@@ -72,6 +72,9 @@ body {
   color: #159957; }
 .index-word p {
   margin-bottom: 1em; }
+.index-word a {
+	color: #0000ff
+}
 .index-word code {
   padding: 2px 4px;
   font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
