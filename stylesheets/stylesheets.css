@@ -24,8 +24,48 @@ body {
 @media screen and (max-width: 42em) {
   .index-hbg {
     padding: 2rem 1rem; } }
+	
+	
+.mc-hbg {
+  color: #ffffff;
+  text-align: center;
+  background-color: #ff80ff;
+  background-image: url(../art/minecraft_bg.png);
+  background-position: center;  }
 
+@media screen and (min-width: 64em) {
+  .mc-hbg {
+    padding: 5rem 6rem; } }
 
+@media screen and (min-width: 42em) and (max-width: 64em) {
+  .mc-hbg {
+    padding: 3rem 4rem; } }
+
+@media screen and (max-width: 42em) {
+  .mc-hbg {
+    padding: 2rem 1rem; } }
+	
+	
+.coc-hbg {
+  color: #000000;
+  text-align: center;
+  background-color: #ff80ff;
+  background-image: url(../art/coc_bg.png);
+  background-position: center;  }
+
+@media screen and (min-width: 64em) {
+  .coc-hbg {
+    padding: 5rem 6rem; } }
+
+@media screen and (min-width: 42em) and (max-width: 64em) {
+  .coc-hbg {
+    padding: 3rem 4rem; } }
+
+@media screen and (max-width: 42em) {
+  .coc-hbg {
+    padding: 2rem 1rem; } }
+	
+	
 .index-head {
   margin-top: 0;
   margin-bottom: 0.1rem; }
@@ -62,7 +102,7 @@ body {
 
 
 .index-f {
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#80ff80), to(#80ff80));
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#cc80cc), to(#cc80cc));
 	width: 90px;
 	-webkit-border-radius: 4px;
 	opacity:0.75;
@@ -84,10 +124,14 @@ body {
 }
 	
 	
-.font-sizs1 {
+#font-black{
+	color: #000000;
+	font-weight: bold;
+}
+#font-sizs1 {
 	font-size: 1.25rem;
 }
-.font-size2 {
+#font-size2 {
 	font-size: 1rem;
 }
 	
