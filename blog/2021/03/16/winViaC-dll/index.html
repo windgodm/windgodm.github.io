@@ -1,0 +1,370 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>windgodm || windows核心编程 dll笔记</title>
+    <meta name="author" content="yssf">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="windgodm" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">windgodm</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>windgodm</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>windows核心编程 dll笔记 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/3/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/windows">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                windows
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/windows" style=color:#ff7d73>
+                    windows
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/dll" style=color:#ff7d73>
+                    dll
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/windows_via_c" style=color:#00bcd4>
+                    windows_via_c
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/note" style=color:#ffa2c4>
+                    note
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="windows核心编程-dll笔记"><a href="#windows核心编程-dll笔记" class="headerlink" title="windows核心编程 dll笔记"></a>windows核心编程 dll笔记</h1><h2 id="构建及使用dll"><a href="#构建及使用dll" class="headerlink" title="构建及使用dll"></a>构建及使用dll</h2><p>以下是核心编程的示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .\Mylib\MyLib.h */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MYLIB</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MYLIB extern <span class="meta-string">&quot;C&quot;</span> __declspec(dllimport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">MYLIB <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line"><span class="function">MYLIB <span class="keyword">int</span> <span class="title">DllFun</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .\Mylib\MyLib1.cpp */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MYLIB extern <span class="meta-string">&quot;C&quot;</span> __declspec(dllexport)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;MyLib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> dll_num;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">DllFun</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> dll_num;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* .\MyExe.cpp */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;MyLib\MyLib.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    dll_num = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; DllFun();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>extern “C”修饰符用于指明使用C++。</p>
+<h2 id="载入dll模块"><a href="#载入dll模块" class="headerlink" title="载入dll模块"></a>载入dll模块</h2><h3 id="显式载入"><a href="#显式载入" class="headerlink" title="显式载入"></a>显式载入</h3><p>将dll映射到进程的地址空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HMODULE <span class="title">LoadLibrary</span><span class="params">(PCTSTR pszDLLPathName)</span></span>;</span><br><span class="line"><span class="function">HMODULE <span class="title">LoadLibraryEx</span><span class="params">(PCTSTR pszDLLPathName,</span></span></span><br><span class="line"><span class="function"><span class="params">                      HANDLE hFile,</span></span></span><br><span class="line"><span class="function"><span class="params">                      DWORD dwFlags)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>返回值是被映射到的虚拟内存地址。（此处HMODULE等价于HINSTANCE）</p>
+<p>通过GetLastError确定是否成功载入。</p>
+<h3 id="显式链接到导出符号"><a href="#显式链接到导出符号" class="headerlink" title="显式链接到导出符号"></a>显式链接到导出符号</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">FARPROC <span class="title">GetProcAddress</span><span class="params">(HMODULE hInstDll, PCSTR pszSymbolName)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="显式卸载"><a href="#显式卸载" class="headerlink" title="显式卸载"></a>显式卸载</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">BOOL <span class="title">FreeLibrary</span><span class="params">(HMODULE hInstDll)</span></span>;</span><br><span class="line"><span class="function">VOID <span class="title">FreeLivraryAndExitThread</span><span class="params">(HMODULE hInstDll, DWORD dwExitCode)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="dll搜索顺序"><a href="#dll搜索顺序" class="headerlink" title="dll搜索顺序"></a>dll搜索顺序</h3><ul>
+<li>当前目录</li>
+<li>windows系统目录</li>
+<li>16位windows系统目录（windows目录下的system子目录）</li>
+<li>windows目录</li>
+<li>path环境变量中的目录</li>
+</ul>
+<h2 id="DllMain"><a href="#DllMain" class="headerlink" title="DllMain"></a>DllMain</h2><h3 id="fdwReason"><a href="#fdwReason" class="headerlink" title="fdwReason"></a>fdwReason</h3><p><strong>DLL_PROCESS_ATTACH：</strong><br>第一次将DLL<strong>映射到进程中</strong>时，会调用DllMain并传入该信号。<br>通常此时应该通过HeapCreate创建需要的堆。<br>返回值用于表示是否初始化成功。</p>
+<p><strong>DLL_THREAD_ATTACH：</strong><br>进程创建一个线程时触发。</p>
+<p><strong>DLL_THREAD_DETACH：</strong><br>ExitThread触发。</p>
+<p><strong>DLL_PROCESS_DETACH：</strong><br>撤销映射时传入该信号。<br>通常执行HeapDestroy销毁初始化时创建的堆。</p>
+<h2 id="模块的基地址重定位"><a href="#模块的基地址重定位" class="headerlink" title="模块的基地址重定位"></a>模块的基地址重定位</h2><p>重定位段(relocation section)包含一个字节偏移量的列表，记录机器指令的内存地址，用于需要重定位时遍历修改内存映像中的地址。</p>
+<h2 id="RemoteInject（CreateRemoteThread）"><a href="#RemoteInject（CreateRemoteThread）" class="headerlink" title="RemoteInject（CreateRemoteThread）"></a>RemoteInject（CreateRemoteThread）</h2><h3 id="大致流程"><a href="#大致流程" class="headerlink" title="大致流程"></a>大致流程</h3><ul>
+<li><p>获取目标进程pid，并打开目标进程。</p>
+</li>
+<li><p>在目标进程中申请空间，写入注入dll的路径。</p>
+</li>
+<li><p>获取LoadLibrary在Kernel32.dll的真实地址。</p>
+</li>
+<li><p>通过远程创建线程，在目标进程中创建一个线程，执行LoadLibrary(dllPathname)。</p>
+</li>
+<li><p>释放申请的空间，并关闭句柄。</p>
+</li>
+</ul>
+<h3 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h3><p>因为是在目标进程中执行LoadLibrary(dllPathname)的，所以需要先把dll路径写入目标进程中，并作为LoadLibrary的参数。</p>
+<p>直接调用LoadLibrary时，链接器会生成一个调用，调用导入段中的一个转换函数。即先跳转到转换函数，再跳转到实际函数。<br>而转换函数在不同进程中是会变的，但Kernel32.dll在所有进程中映射的地址是一样的，所以需要获取LoadLibrary在Kernel32.dll中的地址。</p>
+<h3 id="具体代码"><a href="#具体代码" class="headerlink" title="具体代码"></a>具体代码</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">RemoteInject.cpp</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;TlHelp32.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">DWORD <span class="title">GetPidByName</span><span class="params">(WCHAR* name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">wchar_t</span> targetName[<span class="number">20</span>] = <span class="string">L&quot;Target.exe&quot;</span>;</span><br><span class="line">	<span class="keyword">wchar_t</span> dllPathname[] = <span class="string">L&quot;E:\\MyDll.dll&quot;</span>;</span><br><span class="line">	<span class="keyword">int</span> pathnameLen = (<span class="number">1</span> + lstrlenW(dllPathname)) * <span class="keyword">sizeof</span>(<span class="keyword">wchar_t</span>);</span><br><span class="line">	DWORD pid = <span class="number">0</span>, byw = <span class="number">0</span>;</span><br><span class="line">	HANDLE hTarget = <span class="number">0</span>, hDll = <span class="number">0</span>;</span><br><span class="line">	PWSTR pszPathname = <span class="number">0</span>;</span><br><span class="line">	PTHREAD_START_ROUTINE realAddr = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	__try &#123;</span><br><span class="line">		<span class="comment">// 1 get pid</span></span><br><span class="line">		pid = GetPidByName(targetName);</span><br><span class="line">		<span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;e:Get pid failed\n&quot;</span>;</span><br><span class="line">			__leave;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;pid:&quot;</span> &lt;&lt; pid &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 2 open process</span></span><br><span class="line">		hTarget = OpenProcess((PROCESS_CREATE_THREAD | PROCESS_VM_WRITE | PROCESS_VM_READ | PROCESS_VM_OPERATION), <span class="literal">false</span>, pid);</span><br><span class="line">		<span class="keyword">if</span> (hTarget == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;e:Open process failed\n&quot;</span>;</span><br><span class="line">			__leave;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 3 alloc memory for dll pathname</span></span><br><span class="line">		pszPathname = (PWSTR)VirtualAllocEx(hTarget, <span class="literal">NULL</span>, pathnameLen, MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line">		<span class="keyword">if</span> (pszPathname == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;e:Alloc memory failed\n&quot;</span>;</span><br><span class="line">			__leave;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;pathname addr: &quot;</span> &lt;&lt; pszPathname &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 4 write dll pathname</span></span><br><span class="line">		WriteProcessMemory(hTarget, (LPVOID)pszPathname, dllPathname, pathnameLen, &amp;byw);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;dll pathname(len, write len): &quot;</span> &lt;&lt; pathnameLen &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; byw &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 5 get the real address of LoadLibraryW in Kernel32.dll</span></span><br><span class="line">		HMODULE mh = GetModuleHandleW(<span class="string">L&quot;Kernel32.dll&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span> (mh == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;e:kernel\n&quot;</span>;</span><br><span class="line">			__leave;</span><br><span class="line">		&#125;</span><br><span class="line">		realAddr = (PTHREAD_START_ROUTINE)GetProcAddress(mh, <span class="string">&quot;LoadLibraryW&quot;</span>);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 6 create a remote thread to call LoadLibraryW(dllPathname)</span></span><br><span class="line">		hDll = CreateRemoteThread(hTarget, <span class="literal">NULL</span>, <span class="number">0</span>, realAddr, pszPathname, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">		<span class="keyword">if</span> (hDll == <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;e:create remote thread failed\n&quot;</span>;</span><br><span class="line">			__leave;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;hDll: &quot;</span> &lt;&lt; hDll &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// wait</span></span><br><span class="line">		WaitForSingleObject(hDll, INFINITE);</span><br><span class="line">	&#125;</span><br><span class="line">	__finally &#123;</span><br><span class="line">		<span class="comment">// clean</span></span><br><span class="line">		<span class="keyword">if</span> (hDll != <span class="literal">NULL</span>) &#123;</span><br><span class="line">			CloseHandle(hDll);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (hTarget != <span class="literal">NULL</span>) &#123;</span><br><span class="line">			<span class="keyword">if</span> (pszPathname != <span class="literal">NULL</span>)</span><br><span class="line">				VirtualFreeEx(hTarget, pszPathname, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line"></span><br><span class="line">			CloseHandle(hTarget);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">DWORD <span class="title">GetPidByName</span><span class="params">(WCHAR* name)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HANDLE hsnapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span> (hsnapshot == INVALID_HANDLE_VALUE) &#123;</span><br><span class="line">		printf_s(<span class="string">&quot;CreateToolhelp32Snapshot error!\n&quot;</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	PROCESSENTRY32 pe&#123;&#125;;</span><br><span class="line">	pe.dwSize = <span class="keyword">sizeof</span>(PROCESSENTRY32);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> flag = Process32First(hsnapshot, &amp;pe);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (flag != <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (wcscmp(pe.szExeFile, name) == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> pe.th32ProcessID;</span><br><span class="line">		&#125;</span><br><span class="line">		flag = Process32Next(hsnapshot, &amp;pe);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	CloseHandle(hsnapshot);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ImageWalk"><a href="#ImageWalk" class="headerlink" title="ImageWalk"></a>ImageWalk</h2><p>遍历内存区块查询对应的信息</p>
+<h3 id="MEMORY-BASIC-INFORMATION"><a href="#MEMORY-BASIC-INFORMATION" class="headerlink" title="MEMORY_BASIC_INFORMATION"></a>MEMORY_BASIC_INFORMATION</h3><p>AllocationBase：内存单元起始地址</p>
+<p>BaseAddress：模块基地址</p>
+<p>RegionSize：模块所以页面的大小</p>
+<h3 id="C6262-堆栈溢出警告"><a href="#C6262-堆栈溢出警告" class="headerlink" title="C6262 堆栈溢出警告"></a>C6262 堆栈溢出警告</h3><p>C6262：函数使用了堆栈的“26300”个字节: 超过了 /analyze:stacksize ‘16384’。 请考虑将某些数据移到堆中。</p>
+<p>其中有一个变量为 char szBuf[260 * 100]，260是路径长度最大值，100是个数，这里减少下个数避免这个警告。</p>
+<p>其他解决方式如malloc或new就不再深究了。</p>
+<h2 id="小笔记"><a href="#小笔记" class="headerlink" title="小笔记"></a>小笔记</h2><p>__try和try：据说Release模式下，如果没有throw模块，vc会优化掉try catch</p>
+<p>线性地址：逻辑地址（偏移）+ 基地址</p>
+<p>HMODULE：模块句柄，win32下通常是被载入模块的线性地址</p>
+<p>MAX_PATH：宏常量，通常为260，代表编译器支持的最长路径长度</p>
+<p>sz：string zero，表示以零结尾的字符串，即c字符串</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>C6262：<a target="_blank" rel="noopener" href="https://blog.csdn.net/mxclxp/article/details/7991127">https://blog.csdn.net/mxclxp/article/details/7991127</a></p>
+<p>随书代码下载页面：<a target="_blank" rel="noopener" href="https://www.wintellect.com/windows-via-cc-by-jeffrey-richter-and-christopher-nasarre/">https://www.wintellect.com/windows-via-cc-by-jeffrey-richter-and-christopher-nasarre/</a></p>
+<p>随书代码下载地址：<a target="_blank" rel="noopener" href="https://www.wintellect.com/wp-content/uploads/2017/11/Windows-via-C-Code-January-29-2008.zip">https://www.wintellect.com/wp-content/uploads/2017/11/Windows-via-C-Code-January-29-2008.zip</a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 windgodm
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @yssf
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>

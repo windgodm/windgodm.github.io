@@ -1,0 +1,390 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>windgodm || 远程线程注入逆向</title>
+    <meta name="author" content="yssf">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="windgodm" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">windgodm</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>windgodm</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>远程线程注入逆向 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/3/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/windows">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                windows
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/windows" style=color:#ffa2c4>
+                    windows
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/dll" style=color:#879cff>
+                    dll
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/note" style=color:#1bccbc>
+                    note
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="远程线程注入逆向"><a href="#远程线程注入逆向" class="headerlink" title="远程线程注入逆向"></a>远程线程注入逆向</h1><h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><h3 id="MSDN中的函数定义"><a href="#MSDN中的函数定义" class="headerlink" title="MSDN中的函数定义"></a>MSDN中的函数定义</h3><h4 id="OpenProcess-processthreadsapi-h"><a href="#OpenProcess-processthreadsapi-h" class="headerlink" title="OpenProcess (processthreadsapi.h)"></a>OpenProcess (processthreadsapi.h)</h4><blockquote>
+<h4 id="Syntax"><a href="#Syntax" class="headerlink" title="Syntax"></a>Syntax</h4><p>HANDLE OpenProcess (<br>    DWORD dwDesiredAccess,<br>    BOOL bInheritHandle,<br>    DWORD dwProcessId);</p>
+<h4 id="Requirements"><a href="#Requirements" class="headerlink" title="Requirements"></a>Requirements</h4><p>DLL：Kernel32.dll</p>
+</blockquote>
+<h4 id="NtOpenProcess-ntddk-h"><a href="#NtOpenProcess-ntddk-h" class="headerlink" title="NtOpenProcess (ntddk.h)"></a>NtOpenProcess (ntddk.h)</h4><blockquote>
+<h4 id="Syntax-1"><a href="#Syntax-1" class="headerlink" title="Syntax"></a>Syntax</h4><p>__kernel_entry NTSYSCALLAPI NTSTATUS NtOpenProcess (<br>   PHANDLE ProcessHandle,<br>   ACCESS_MASK DesiredAccess,<br>   POBJECT_ATTRIBUTES ObjectAttributes,<br>   PCLIENT_ID ClientId);</p>
+<h4 id="Requirements-1"><a href="#Requirements-1" class="headerlink" title="Requirements"></a>Requirements</h4><p>Header：ntddk.h (include Ntddk.h, Ntifs.h)</p>
+</blockquote>
+<h4 id="NtAllocateVirtualMemory-ntifs-h"><a href="#NtAllocateVirtualMemory-ntifs-h" class="headerlink" title="NtAllocateVirtualMemory (ntifs.h)"></a>NtAllocateVirtualMemory (ntifs.h)</h4><blockquote>
+<h4 id="Syntax-2"><a href="#Syntax-2" class="headerlink" title="Syntax"></a>Syntax</h4><p>__kernel_entry NTSYSCALLAPI NTSTATUS NtAllocateVirtualMemory(<br>   HANDLE ProcessHandle,<br>   PVOID *BaseAddress,<br>   ULONG_PTR ZeroBits,<br>   PSIZE_T RegionSize,<br>   ULONG AllocationType,<br>   ULONG Protect);</p>
+</blockquote>
+<h3 id="第三方网站中的函数定义"><a href="#第三方网站中的函数定义" class="headerlink" title="第三方网站中的函数定义"></a>第三方网站中的函数定义</h3><h4 id="NtWriteVirtualMemory"><a href="#NtWriteVirtualMemory" class="headerlink" title="NtWriteVirtualMemory"></a>NtWriteVirtualMemory</h4><blockquote>
+<p>__kernel_entry NTSYSCALLAPI NTSTATUS NtQueryVirtualMemory(<br>   HANDLE ProcessHandle,<br>   PVOID BaseAddress,<br>   MEMORY_INFORMATION_CLASS MemoryInformationClass,<br>   PVOID MemoryInformation,<br>   SIZE_T MemoryInformationLength,<br>   PSIZE_T ReturnLength );</p>
+</blockquote>
+<h3 id="结构体定义"><a href="#结构体定义" class="headerlink" title="结构体定义"></a>结构体定义</h3><h4 id="UNICODE-STRING-ntdef-h"><a href="#UNICODE-STRING-ntdef-h" class="headerlink" title="UNICODE_STRING (ntdef.h)"></a>UNICODE_STRING (ntdef.h)</h4><p>似乎是一种安全的unicode字符串类型，下面是ntdef源码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Unicode strings are counted 16-bit character strings. If they are</span></span><br><span class="line"><span class="comment">// NULL terminated, Length does not include trailing NULL.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">UNICODE_STRING</span> &#123;</span></span><br><span class="line">    USHORT Length;</span><br><span class="line">    USHORT MaximumLength;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> MIDL_PASS</span></span><br><span class="line">    [size_is(MaximumLength / <span class="number">2</span>), length_is((Length) / <span class="number">2</span>) ] USHORT * Buffer;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">    _Field_size_bytes_part_opt_(MaximumLength, Length) PWCH   Buffer;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// MIDL_PASS</span></span></span><br><span class="line">&#125; UNICODE_STRING;</span><br><span class="line"><span class="keyword">typedef</span> UNICODE_STRING *PUNICODE_STRING;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">const</span> UNICODE_STRING *PCUNICODE_STRING;</span><br><span class="line"><span class="comment">// end_sdfwdm</span></span><br><span class="line"><span class="comment">// end_wudfwdm</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="OBJECT-ATTRIBUTES-ntdef-h"><a href="#OBJECT-ATTRIBUTES-ntdef-h" class="headerlink" title="OBJECT_ATTRIBUTES (ntdef.h)"></a>OBJECT_ATTRIBUTES (ntdef.h)</h4><p>下面是ntdef源码。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_ATTRIBUTES</span> &#123;</span></span><br><span class="line">    ULONG Length;</span><br><span class="line">    HANDLE RootDirectory;</span><br><span class="line">    PUNICODE_STRING ObjectName;</span><br><span class="line">    ULONG Attributes;</span><br><span class="line">    PVOID SecurityDescriptor;        <span class="comment">// Points to type SECURITY_DESCRIPTOR</span></span><br><span class="line">    PVOID SecurityQualityOfService;  <span class="comment">// Points to type SECURITY_QUALITY_OF_SERVICE</span></span><br><span class="line">&#125; OBJECT_ATTRIBUTES;</span><br><span class="line"><span class="keyword">typedef</span> OBJECT_ATTRIBUTES *POBJECT_ATTRIBUTES;</span><br><span class="line"><span class="keyword">typedef</span> CONST OBJECT_ATTRIBUTES *PCOBJECT_ATTRIBUTES;</span><br></pre></td></tr></table></figure>
+
+<h4 id="CLIENT-ID-MSDN"><a href="#CLIENT-ID-MSDN" class="headerlink" title="CLIENT_ID (MSDN)"></a>CLIENT_ID (MSDN)</h4><p>MSDN的解释是包括进程和线程的id，下面是MSDN中的定义。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">CLIENT_ID</span> &#123;</span></span><br><span class="line">	HANDLE UniqueProcess;</span><br><span class="line">	HANDLE UniqueThread;</span><br><span class="line">&#125; CLIENT_ID;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件地址"><a href="#文件地址" class="headerlink" title="文件地址"></a>文件地址</h3><blockquote>
+<p>C:\Windows\System32\kernel32.dll<br>C:\Windows\System32\KernelBase.dll<br>C:\Windows\SysWOW64\kernel32.dll<br>C:\Windows\SysWOW64\KernelBase.dll<br>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\windows.h<br>C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\ntdef.h</p>
+</blockquote>
+<h2 id="逆向重写OpenProcess（NtOpenProcess）"><a href="#逆向重写OpenProcess（NtOpenProcess）" class="headerlink" title="逆向重写OpenProcess（NtOpenProcess）"></a>逆向重写OpenProcess（NtOpenProcess）</h2><h3 id="在dll中寻找OpenProcess"><a href="#在dll中寻找OpenProcess" class="headerlink" title="在dll中寻找OpenProcess"></a>在dll中寻找OpenProcess</h3><p>在本机的System32\kernel32.dll里没有找到，只找到OpenProcessStub()，这个函数会直接调用OpenProcess。在System32\KernelBase.dll里找到了OpenProcess，然后用ida f5，改了以下符号名是下面这个样子。</p>
+<p>其中ObjectAttributes.Length这个参数有问题，64位是48，32位是24，msdn里是<code>sizeof(OBJECT_ATTRIBUTES)</code>。</p>
+<p>如果有dalao看到这里肯定发现，system32目录下的是64位的dll，但我原本是想找32位的，很尴尬。</p>
+<h3 id="KernelBase"><a href="#KernelBase" class="headerlink" title="KernelBase"></a>KernelBase</h3><p>MSDN上找到一份关于win7的资料[5]，大概意思是把部分kernel32和advapi32的函数移到了kernelbase里，并称kernelbase为low-level binaries，应该是低权限的意思。目的是为了以后的网络工程开发和减少攻击面。</p>
+<h3 id="OpenProcess调用过程（x32）"><a href="#OpenProcess调用过程（x32）" class="headerlink" title="OpenProcess调用过程（x32）"></a>OpenProcess调用过程（x32）</h3><p>在重写OpenProcess改用NtOpenProcess后（详细见下面重新OpenProcess），我重新跟踪了下调用OpenProcess的过程。</p>
+<p><img src="https://s3.ax1x.com/2021/03/16/6y9jbj.png" alt="op32"></p>
+<p>首先main函数call OpenProcess，跳转到kernel.dll；然后jmp到kernelbase.dll；在kernelbase.dll里才是OpenProcess的主要代码，其中会调用ntdll的NtOpenProcess；而NtOpenProcess会调用系统调用。</p>
+<h3 id="OpenProcess调用过程（x64）"><a href="#OpenProcess调用过程（x64）" class="headerlink" title="OpenProcess调用过程（x64）"></a>OpenProcess调用过程（x64）</h3><p>64位和32差不多，先是main call OpenProcess跳转到kernel.dll；然后jmp到kernelbase.dll；kernelbase.dll里是主要代码，不同点是ObjectAttributes.Length的值，以及32位调用的NtOpenProcess，在64中改成了ntdll的ZwOpenProcess；而ZwOpenProcess同样调用了系统调用。</p>
+<p><img src="https://s3.ax1x.com/2021/03/16/6yCuPx.png" alt="op64"></p>
+<h3 id="重写OpenProcess（NtOpenProcess）"><a href="#重写OpenProcess（NtOpenProcess）" class="headerlink" title="重写OpenProcess（NtOpenProcess）"></a>重写OpenProcess（NtOpenProcess）</h3><p>直接引用ntdef.h会引发下面的错误：</p>
+<p>error C2338: Windows headers require the default packing option. Changing this can lead to memory corruption. This diagnostic can be disabled by building with WINDOWS_IGNORE_PACKING_MISMATCH defined.</p>
+<p>最终代替OpenProcess的代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">UNICODE_STRING</span> &#123;</span></span><br><span class="line">	USHORT Length;</span><br><span class="line">	USHORT MaximumLength;</span><br><span class="line">	PWSTR  Buffer;</span><br><span class="line">&#125;UNICODE_STRING, *PUNICODE_STRING;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_ATTRIBUTES</span> &#123;</span></span><br><span class="line">	ULONG Length;</span><br><span class="line">	HANDLE RootDirectory;</span><br><span class="line">	PUNICODE_STRING ObjectName;</span><br><span class="line">	ULONG Attributes;</span><br><span class="line">	PVOID SecurityDescriptor;</span><br><span class="line">	PVOID SecurityQualityOfService;</span><br><span class="line">&#125;OBJECT_ATTRIBUTES, *POBJECT_ATTRIBUTES;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">CLIENT_ID</span> &#123;</span></span><br><span class="line">	HANDLE UniqueProcess;</span><br><span class="line">	HANDLE UniqueThread;</span><br><span class="line">&#125;CLIENT_ID, *PCLIENT_ID;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">long</span> <span class="params">(WINAPI* PNtOpenProcess)</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	PHANDLE ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	ACCESS_MASK DesiredAccess,</span></span></span><br><span class="line"><span class="function"><span class="params">	POBJECT_ATTRIBUTES ObjectAttributes,</span></span></span><br><span class="line"><span class="function"><span class="params">	PCLIENT_ID ClientId</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// hTarget = OpenProcess((PROCESS_CREATE_THREAD | PROCESS_VM_WRITE | PROCESS_VM_READ | PROCESS_VM_OPERATION), false, pid);</span></span><br><span class="line">HMODULE mdNT = GetModuleHandleW(<span class="string">L&quot;ntdll.dll&quot;</span>);</span><br><span class="line">PNtOpenProcess NtOpenProcess = (PNtOpenProcess)GetProcAddress(mdNT, <span class="string">&quot;NtOpenProcess&quot;</span>);</span><br><span class="line">OBJECT_ATTRIBUTES ObjectAttributes = &#123; <span class="keyword">sizeof</span>(OBJECT_ATTRIBUTES) &#125;; <span class="comment">// 0x18</span></span><br><span class="line">CLIENT_ID ClientId = &#123; (HANDLE)pid, <span class="number">0</span> &#125;;</span><br><span class="line">DWORD nts = NtOpenProcess(&amp;hTarget, (PROCESS_CREATE_THREAD | PROCESS_VM_WRITE | PROCESS_VM_READ | PROCESS_VM_OPERATION), &amp;ObjectAttributes, &amp;ClientId);</span><br></pre></td></tr></table></figure>
+
+<p>其中ObjectAttributes.Length我一开始照抄48（后面才发现，照抄的是64位版本的openprocess。），然后NtOpenProcess给我返回了0xC000000D，MSDN中的说明是传入非法参数，再仔细看Members条目，发现这个参数应该为<code>sizeof(OBJECT_ATTRIBUTES)</code>，vs中调试发现这个结构体的长度为24，修改后就能正常用了。原因是32和64的OBJECT_ATTRIBUTES结构长度不一样。</p>
+<h2 id="R0和R3通信"><a href="#R0和R3通信" class="headerlink" title="R0和R3通信"></a>R0和R3通信</h2><p>后面查资料才知道，windwos程序运行在r3（用户态）层；驱动在r1，r2；系统代码在r0（内核态）层。r0权限最高。</p>
+<p>ntdll提供api使得r3层面的程序能够执行r0层的代码。而ntdll的native api都是成对出现的，分别以Nt和Zw开头。</p>
+<h2 id="逆向重写VirtualAllocEx（NtAllocateVirtualMemory）"><a href="#逆向重写VirtualAllocEx（NtAllocateVirtualMemory）" class="headerlink" title="逆向重写VirtualAllocEx（NtAllocateVirtualMemory）"></a>逆向重写VirtualAllocEx（NtAllocateVirtualMemory）</h2><h3 id="KernelBase-dll中的VirtualAllocEx"><a href="#KernelBase-dll中的VirtualAllocEx" class="headerlink" title="KernelBase.dll中的VirtualAllocEx"></a>KernelBase.dll中的VirtualAllocEx</h3><p>VirtualAllocEx会直接调用VirtualAllocExNuma；然后VirtualAllocExNuma调用NtAllocateVirtualMemory。</p>
+<h3 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">long</span> <span class="params">(WINAPI* PNtAllocateVirtualMemory)</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	HANDLE ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	PVOID* BaseAddress,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG_PTR ZeroBits,</span></span></span><br><span class="line"><span class="function"><span class="params">	PSIZE_T RegionSize,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG AllocationType,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG Protect</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// pszPathname = (PWSTR)VirtualAllocEx(hTarget, NULL, pathnameLen, MEM_COMMIT, PAGE_READWRITE);</span></span><br><span class="line">PNtAllocateVirtualMemory NtAllocateVirtualMemory = (PNtAllocateVirtualMemory)GetProcAddress(mdNT, <span class="string">&quot;NtAllocateVirtualMemory&quot;</span>);</span><br><span class="line">nts = NtAllocateVirtualMemory(hTarget, (PVOID*)&amp;pszPathname, <span class="number">0</span>, (SIZE_T*)&amp;pathnameLen, MEM_COMMIT &amp; <span class="number">0xFFFFFFC0</span>, PAGE_READWRITE);</span><br></pre></td></tr></table></figure>
+
+<h2 id="逆向重写WriteProcessMemory（NtWriteVirtualMemory）"><a href="#逆向重写WriteProcessMemory（NtWriteVirtualMemory）" class="headerlink" title="逆向重写WriteProcessMemory（NtWriteVirtualMemory）"></a>逆向重写WriteProcessMemory（NtWriteVirtualMemory）</h2><h3 id="KernelBase-dll中的WriteProcessMemory"><a href="#KernelBase-dll中的WriteProcessMemory" class="headerlink" title="KernelBase.dll中的WriteProcessMemory"></a>KernelBase.dll中的WriteProcessMemory</h3><p>WriteProcessMemory中调用了NtQueryVirtualMemory，NtProtectVirtualMemory，NtWriteVirtualMemory，NtFlushInstructionCache。后三个在MSDN中似乎都没有资料。</p>
+<p>其中 NtQueryVirtualMemory 用于获取虚拟内存的属性。</p>
+<p>在第三方网站查询得到 NtProtectVirtualMemory[7] 用于改变虚拟内存区域的保护状态。</p>
+<p>关于 NtFlushInstructionCache 的资料没有找到多少，说是用于刷新指令缓存，不知道具体有什么用。</p>
+<p>同样在第三方网站查询得到 NtWriteVirtualMemory[8] 用于写入内存。所以只需要直接调用这个即可。</p>
+<h3 id="重写-1"><a href="#重写-1" class="headerlink" title="重写"></a>重写</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">long</span><span class="params">(WINAPI* PNtWriteVirtualMemory)</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	HANDLE ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	PVOID BaseAddress,</span></span></span><br><span class="line"><span class="function"><span class="params">	PVOID Buffer,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG BufferSize,</span></span></span><br><span class="line"><span class="function"><span class="params">	PULONG NumberOfBytesWritten</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// WriteProcessMemory(hTarget, (LPVOID)memoryAddr, buf, bufSize, &amp;byw);</span></span><br><span class="line">PNtWriteVirtualMemory NtWriteVirtualMemory = (PNtWriteVirtualMemory)GetProcAddress(mdNT, <span class="string">&quot;NtWriteVirtualMemory&quot;</span>);</span><br><span class="line">NtWriteVirtualMemory(hTarget, memoryAddr, buf, bufSize, &amp;byw);</span><br></pre></td></tr></table></figure>
+
+<h2 id="逆向重写LoadLibraryExW（LdrLoadDll）"><a href="#逆向重写LoadLibraryExW（LdrLoadDll）" class="headerlink" title="逆向重写LoadLibraryExW（LdrLoadDll）"></a>逆向重写LoadLibraryExW（LdrLoadDll）</h2><p>32位下调用过程如下，不管调用哪个版本，最终都会去到LoadLibraryExW。</p>
+<p>LoadLibraryA -&gt; LoadLibraryExA -&gt;LoadLibraryExW，LoadLibraryW -&gt; LoadLibraryExW</p>
+<h3 id="KernelBase-dll中的LoadLibraryExW"><a href="#KernelBase-dll中的LoadLibraryExW" class="headerlink" title="KernelBase.dll中的LoadLibraryExW"></a>KernelBase.dll中的LoadLibraryExW</h3><p>首先通过传入的dwFlags参数确认传入的dll名称是不是unicode编码，不是就设置错误代码为0xC000000D（传入参数非法）。</p>
+<p>然后转换成UNICODE_STRING（RtlInitUnicodeString）。</p>
+<p>转换后会进行检查，去掉unicode字符串末尾的空格。如果全是空格同样会设置错误代码为0xC000000D。</p>
+<p>接着有一段代码会调用 LdrGetDllPath，这段代码如果调用 LoadLibraryW 进入的 LoadLibraryExW 不会触发。</p>
+<p>然后又有一系列从 LoadLibraryW 进入不会触发的if语句。</p>
+<p>最后调用 LdrLoadDll。</p>
+<p>需要注意的是，要选择Release模式，debug模式会出问题，不能正确获得ShellCode地址。</p>
+<h3 id="重写-2"><a href="#重写-2" class="headerlink" title="重写"></a>重写</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __declspec(naked) ShellCode(PVOID addr)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// para 3 UNICODE_STRING pathname</span></span><br><span class="line">    <span class="comment">// [addr+0x0] 2:  USHORT  Length</span></span><br><span class="line">    <span class="comment">// [addr+0x2] 2:  USHORT  MaximumLength</span></span><br><span class="line">    <span class="comment">// [addr+0x4] 4:  PWSTR   Buffer        = addr+8</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [addr+0x8] 0x14: wchar_t dllPathname</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// para 2</span></span><br><span class="line">    <span class="comment">// [addr+0x98] 4: ULONG LoadFlags = 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// para 4</span></span><br><span class="line">    <span class="comment">// [addr+0x9C] 4: PVOID BaseAddress = 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [addr+0x100] 4: PVOID LdrLoadDll</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// [addr+0x200] : shellcode</span></span><br><span class="line">	__asm &#123;</span><br><span class="line">		pushad;</span><br><span class="line">		mov eax, addr;</span><br><span class="line">		<span class="comment">// para 4</span></span><br><span class="line">		mov ebx, eax;</span><br><span class="line">		add ebx, <span class="number">0x9c</span>;</span><br><span class="line">		push ebx;</span><br><span class="line">		<span class="comment">// para 3</span></span><br><span class="line">		mov ebx, eax;</span><br><span class="line">		push ebx;</span><br><span class="line">		<span class="comment">// para 2</span></span><br><span class="line">		mov ebx, eax;</span><br><span class="line">		add ebx, <span class="number">0x98</span>;</span><br><span class="line">		push ebx;</span><br><span class="line">		<span class="comment">// para 1</span></span><br><span class="line">		mov ebx, <span class="number">1</span>;</span><br><span class="line">		push ebx;</span><br><span class="line">		<span class="comment">// call LdrLoadDll</span></span><br><span class="line">		add eax, <span class="number">0x100</span>;</span><br><span class="line">		mov edx, [eax];</span><br><span class="line">		call edx;</span><br><span class="line">		popad;</span><br><span class="line">		mov eax, addr;</span><br><span class="line">		add eax, <span class="number">0x9C</span>;</span><br><span class="line">		mov eax, [eax];</span><br><span class="line">		ret;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="写入参数及shellcode"><a href="#写入参数及shellcode" class="headerlink" title="写入参数及shellcode"></a>写入参数及shellcode</h4><p>这里需要用NtWriteVirtualMemory写入参数及shellcode。</p>
+<p>第三个参数 UNICODE_STRING pathname 我直接选择自己构建，MaximumLength就是dll路径字符串的字节数（包括末尾的零），而Length必须是字符串不包括末尾\x0\x0的字节数，否则会LdrLoadDll会找不到dll并返回0xC0000135。</p>
+<h2 id="逆向重写CreateRemoteThreadEx（NtCreateThreadEx）"><a href="#逆向重写CreateRemoteThreadEx（NtCreateThreadEx）" class="headerlink" title="逆向重写CreateRemoteThreadEx（NtCreateThreadEx）"></a>逆向重写CreateRemoteThreadEx（NtCreateThreadEx）</h2><h3 id="KernelBase-dll中的CreateRemoteThreadEx"><a href="#KernelBase-dll中的CreateRemoteThreadEx" class="headerlink" title="KernelBase.dll中的CreateRemoteThreadEx"></a>KernelBase.dll中的CreateRemoteThreadEx</h3><p>CreateRemoteThread会直接调用CreateRemoteThreadEx</p>
+<p>然后CreateRemoteThreadEx会搞一堆奇奇怪怪的检测，并调用NtCreateThreadEx。</p>
+<p>在网上找到定义[9]，照着定义和ida写了下。其中调用了个BaseFormatObjectAttributes，但传了两个零进去发现其实什么也没干。</p>
+<h3 id="重写-3"><a href="#重写-3" class="headerlink" title="重写"></a>重写</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">long</span><span class="params">(WINAPI* PNtCreateThreadEx)</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	PHANDLE hThread,</span></span></span><br><span class="line"><span class="function"><span class="params">	ACCESS_MASK DesiredAccess,</span></span></span><br><span class="line"><span class="function"><span class="params">	LPVOID ObjectAttributes,</span></span></span><br><span class="line"><span class="function"><span class="params">	HANDLE ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	LPTHREAD_START_ROUTINE lpStartAddress,</span></span></span><br><span class="line"><span class="function"><span class="params">	LPVOID lpParameter,</span></span></span><br><span class="line"><span class="function"><span class="params">	BOOL CreateSuspended,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG StackZeroBits,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG SizeOfStackCommit,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG SizeOfStackReserve,</span></span></span><br><span class="line"><span class="function"><span class="params">	LPVOID lpBytesBuffer</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line">PNtCreateThreadEx NtCreateThreadEx = (PNtCreateThreadEx)GetProcAddress(mdNT, <span class="string">&quot;NtCreateThreadEx&quot;</span>);</span><br><span class="line">nts = NtCreateThreadEx(</span><br><span class="line">    &amp;hDll,</span><br><span class="line">    <span class="number">0x1FFFFF</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    hTarget,</span><br><span class="line">    (LPTHREAD_START_ROUTINE)(pVirtualMemory + <span class="number">0x200</span>),</span><br><span class="line">    (PVOID)pVirtualMemory,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="用RtlCreateUserThread代替CreateRemoteThread"><a href="#用RtlCreateUserThread代替CreateRemoteThread" class="headerlink" title="用RtlCreateUserThread代替CreateRemoteThread"></a>用RtlCreateUserThread代替CreateRemoteThread</h2><p>据说RtlCreateUserThread是NtCreateThread的一个小型封装。抄了一下Metasploit的代码[11]。</p>
+<p>Metasploit会先用CraeteRemoteThread，没有足够空间时再使用RtlCreateUserThread。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">long</span><span class="params">(WINAPI* PRtlCreateUserThread)</span> <span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">	HANDLE ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	PSECURITY_DESCRIPTOR SecurityDescriptor,</span></span></span><br><span class="line"><span class="function"><span class="params">	BOOLEAN CreateSuspended,</span></span></span><br><span class="line"><span class="function"><span class="params">	ULONG StackZeroBits,</span></span></span><br><span class="line"><span class="function"><span class="params">	PULONG StackReserved,</span></span></span><br><span class="line"><span class="function"><span class="params">	PULONG StackCommit,</span></span></span><br><span class="line"><span class="function"><span class="params">	PVOID StartAddress,</span></span></span><br><span class="line"><span class="function"><span class="params">	PVOID StartParameter,</span></span></span><br><span class="line"><span class="function"><span class="params">	PHANDLE ThreadHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">	PCLIENT_ID ClientID</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line">PRtlCreateUserThread RtlCreateUserThread = (PRtlCreateUserThread)GetProcAddress(mdNT, <span class="string">&quot;RtlCreateUserThread&quot;</span>);</span><br><span class="line">nts = RtlCreateUserThread(</span><br><span class="line">    hTarget,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">    (LPTHREAD_START_ROUTINE)(pVirtualMemory + <span class="number">0x200</span>),</span><br><span class="line">    (PVOID)pVirtualMemory,</span><br><span class="line">    &amp;hDll,</span><br><span class="line">    <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] UNICODE_STRING ：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-_unicode_string">https://docs.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-_unicode_string</a></p>
+<p>[2] OBJECT_ATTRIBUTES：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-_object_attributes">https://docs.microsoft.com/en-us/windows/win32/api/ntdef/ns-ntdef-_object_attributes</a></p>
+<p>[3] CLIENT_ID：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/a11e7129-685b-4535-8d37-21d4596ac057">https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-tsts/a11e7129-685b-4535-8d37-21d4596ac057</a></p>
+<p>[4] NtOpenProcess：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-ntopenprocess">https://docs.microsoft.com/en-us/windows-hardware/drivers/ddi/ntddk/nf-ntddk-ntopenprocess</a></p>
+<p>[5] New Low-Level Binaries（win7）：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/win7appqual/new-low-level-binaries">https://docs.microsoft.com/en-us/windows/win32/win7appqual/new-low-level-binaries</a></p>
+<p>[6] r0和r3之间的通信：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_33526144/article/details/103503011">https://blog.csdn.net/qq_33526144/article/details/103503011</a></p>
+<p>[7] NtQueryVirtualMemory：<a target="_blank" rel="noopener" href="http://www.codewarrior.cn/ntdoc/winnt/mm/NtProtectVirtualMemory.htm">http://www.codewarrior.cn/ntdoc/winnt/mm/NtProtectVirtualMemory.htm</a></p>
+<p>[8] NtWriteProcessMemory：<a target="_blank" rel="noopener" href="http://www.codewarrior.cn/ntdoc/winnt/mm/NtWriteVirtualMemory.htm">http://www.codewarrior.cn/ntdoc/winnt/mm/NtWriteVirtualMemory.htm</a></p>
+<p>[9] NtCreateThread：<a target="_blank" rel="noopener" href="https://securityxploded.com/ntcreatethreadex.php">https://securityxploded.com/ntcreatethreadex.php</a></p>
+<p>[10] RtlCreateUserThread：<a target="_blank" rel="noopener" href="https://undocumented.ntinternals.net/index.html?page=UserMode/Undocumented%20Functions/Executable%20Images/RtlCreateUserThread.html">https://undocumented.ntinternals.net/index.html?page=UserMode%2FUndocumented%20Functions%2FExecutable%20Images%2FRtlCreateUserThread.html</a></p>
+<p>[11] RtlCreateUserThread Metasploit例子：<a target="_blank" rel="noopener" href="https://github.com/rapid7/meterpreter/blob/6d43284689240f4261cae44a47f0fb557c1dde27/source/common/arch/win/remote_thread.c#L77">https://github.com/rapid7/meterpreter/blob/6d43284689240f4261cae44a47f0fb557c1dde27/source/common/arch/win/remote_thread.c#L77</a></p>
+<p>[12] RtlCreateUserThread mimikatz例子：<a target="_blank" rel="noopener" href="https://github.com/gentilkiwi/mimikatz/blob/d5676aa66cb3f01afc373b0a2f8fcc1a2822fd27/modules/kull_m_remotelib.c#L59">https://github.com/gentilkiwi/mimikatz/blob/d5676aa66cb3f01afc373b0a2f8fcc1a2822fd27/modules/kull_m_remotelib.c#L59</a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 windgodm
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @yssf
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>
