@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BraveTroops || 21虎符CTF-RE-wp</title>
+    <meta name="author" content="御史神风">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="BraveTroops" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">BraveTroops</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>BraveTroops</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>21虎符CTF-RE-wp </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/4/15
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/ctf">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                ctf
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/ctf" style=color:#879cff>
+                    ctf
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/wp" style=color:#879cff>
+                    wp
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/re" style=color:#879cff>
+                    re
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="虎符-2021-RE"><a href="#虎符-2021-RE" class="headerlink" title="虎符 2021 RE"></a>虎符 2021 RE</h1><h2 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h2><p>mips架构什么的，完全不了解，溜了</p>
+<h2 id="gocrypt"><a href="#gocrypt" class="headerlink" title="gocrypt"></a>gocrypt</h2><p>是个go语言程序</p>
+<p>里面有个encodeing_hex_Decode，作用是string转hex（”b0a0” =&gt; [0xa0, 0xb0]）<br>第7个参数是dest<br>第10个参数是source<br>第11个参数是source的长度</p>
+<p>有个runtime_check会检查格式，推出格式是flag{hhhhhhhh-hhhh-hhhh-hhhh-hhhhhhhhhhhh}</p>
+<p>main_myCipher_Encrypt中有(a+(a&gt;&gt;5)&amp;(16*a))猜出加密方式是xtea</p>
+<p>解密脚本就不贴了，实际上异或的另一边是密钥，利用异或的可逆很快就能推出解密脚本</p>
+<p>在打极客时就有个想法，这种简单的re题核心都是推导加密函数的逆函数，不知道能不能写个逻辑分析程序一把梭。</p>
+<h2 id="CrackMe"><a href="#CrackMe" class="headerlink" title="CrackMe"></a>CrackMe</h2><p>运行什么提示都没，但还是搜字符串试试，rva=2A90，2AB0的两个函数似乎有点重要。</p>
+<p>main里面有两次输入，判定两次。sub_1360这个函数ida似乎识别出了问题，不知道是不是bug。</p>
+<p>第一次输入后有两个循环，会把17个输入分成前7个和后10个</p>
+<p>第二次输入后有几个循环</p>
+<p>第一个循环是在求dx = 0.001，[0,100]，sub_1360(x, (v94/12379) + 1)*dx的积分 a</p>
+<p>然后int(2a+3) == 0x13AFA + 9 == 0x13B03 (sub_13A0中v7044+=9)</p>
+<p>第二个循环同样求和第一个差不多的积分 b，不过第二个参数变成了(v94%12379 + 1)</p>
+<p>然后int(2b+3) == 0x59D + 5 == 0x5A2 (sub_13A0中v7048+=5)</p>
+<p>爆破脚本</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">double</span> <span class="title">f</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> tmp = <span class="built_in">pow</span>(a, b - <span class="number">1.0</span>);</span><br><span class="line">	<span class="keyword">double</span> ret = tmp / <span class="built_in">exp</span>(a);</span><br><span class="line">	<span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">double</span> s = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">double</span> x = <span class="number">0.0</span>;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">12379</span>; ++i) &#123;</span><br><span class="line">		x = <span class="number">0.0</span>;</span><br><span class="line">		s = <span class="number">0.0</span>;</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			s += f(x, (<span class="keyword">double</span>)i) * <span class="number">0.001</span>;</span><br><span class="line">			x += + <span class="number">0.001</span>;</span><br><span class="line">		&#125; <span class="keyword">while</span> (x &lt;= <span class="number">100.0</span>);</span><br><span class="line">		<span class="keyword">int</span> ans = (<span class="keyword">int</span>)(s + s + <span class="number">3.0</span>);</span><br><span class="line">		<span class="keyword">if</span> (ans == <span class="number">0x5a2</span>) &#123; <span class="comment">// 0x59D + 5</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;i = %d, v95 = %d\n&quot;</span>, i, i<span class="number">-1</span>); <span class="comment">// i = 7, v95 = 6</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = i - <span class="number">1</span>; ; i += <span class="number">12379</span>) &#123;</span><br><span class="line">		x = <span class="number">0.0</span>;</span><br><span class="line">		s = <span class="number">0.0</span>;</span><br><span class="line">		<span class="keyword">double</span> b = (<span class="keyword">double</span>)((<span class="keyword">int</span>)i / <span class="number">12379</span>) + <span class="number">1.0</span>;</span><br><span class="line">		<span class="keyword">do</span> &#123;</span><br><span class="line">			s += f(x, (<span class="keyword">double</span>)b) * <span class="number">0.001</span>;</span><br><span class="line">			x += +<span class="number">0.001</span>;</span><br><span class="line">		&#125; <span class="keyword">while</span> (x &lt;= <span class="number">100.0</span>);</span><br><span class="line">		<span class="keyword">int</span> ans = (<span class="keyword">int</span>)(s + s + <span class="number">3</span>);</span><br><span class="line">		<span class="keyword">if</span> (ans == <span class="number">0x13B03</span>) &#123; <span class="comment">// 0x13AFA + 9</span></span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;v95 = %d\n&quot;</span>, i); <span class="comment">// v95 = 99038</span></span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后与第一次输入的内容处理后，得到flag</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">8</span>] = <span class="string">&quot;9903819&quot;</span>;</span><br><span class="line">	<span class="keyword">short</span> s1[<span class="number">7</span>] = &#123;<span class="number">0x8</span>, <span class="number">0x4d</span>, <span class="number">0x59</span>, <span class="number">0x06</span>, <span class="number">0x73</span>, <span class="number">0x02</span>, <span class="number">0x40</span>&#125;;</span><br><span class="line">	<span class="keyword">char</span> c[<span class="number">20</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++)</span><br><span class="line">		c[i] = a[i] ^ s1[i];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">char</span> s2[<span class="number">10</span>] = &#123; <span class="number">0xb2</span>, <span class="number">0xd6</span>, <span class="number">0x8e</span>, <span class="number">0x3f</span>, <span class="number">0xaa</span>, <span class="number">0x14</span>, <span class="number">0x53</span>, <span class="number">0x54</span>, <span class="number">0xc6</span>, <span class="number">0x06</span> &#125;;</span><br><span class="line">	<span class="keyword">char</span> key[<span class="number">10</span>] = &#123; <span class="number">0xe0</span>, <span class="number">0x95</span>, <span class="number">0xba</span>, <span class="number">0x60</span>, <span class="number">0xc9</span>, <span class="number">0x66</span>, <span class="number">0x2a</span>, <span class="number">0x24</span>, <span class="number">0xb2</span>, <span class="number">0x36</span> &#125;;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++)</span><br><span class="line">		c[i + <span class="number">7</span>] = s2[i] ^ key[i];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; c &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 BraveTroops
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @御史神风
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>
