@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BraveTroops || geek_challenge</title>
+    <title>BraveTroops || </title>
     <meta name="author" content="御史神风">
     <meta name="description" content=" ">
     <meta name="keywords" content=" ">
@@ -150,299 +150,396 @@
                 </div>
 
                 <div id="main">
-                     
-<div class="categories-tags">
-    
-    <div class="all-s">
-        
-        
-        <span>
-            <a href="/blog/tags/ctf/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                ctf
-            </a>
+                    <div id="home-head" style=background-image:url('home.jpg')>
+    <script>
+        var menu = document.getElementById("menu")
+        menu.className += " menu-color"
+    </script>
+     
+    <div id="home-info" class="home-info" @click="home_click">
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="loop"></span>
+        <span class="info">
+            <div class="wrap">
+                <h1>BraveTroops</h1>
+                <h3></h3>
+                <h5></h5>
+            </div>
         </span>
+    </div>
+     
+</div>
+
+
+
+<div id="home-posts-wrap" class=>
+    <div id="home-posts">
+
+        <div id="posts">
+            
+
+<div class="post">
+
+    <a href="/blog/2021/03/16/dllRemoteInject/">
+        <h2>
+            远程线程注入逆向
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
         
-        
-        
-        <span>
-            <a href="/blog/tags/geek-challenge/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
+        <span class="category">
+            <a href="/blog/categories/windows">
                 <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                geek_challenge
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/wp/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                wp
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/windows/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+                    <a-icon type="book" theme="filled" /></span>
                 windows
             </a>
         </span>
         
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/3/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            对远程线程注入（CreateRemoteThread）所用到的函数做了一下逆向研究,<br>用native api实现了远程注入
+            
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
         
         
-        <span>
-            <a href="/blog/tags/dll/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+        <span class="tag">
+            
+            <a href="/blog/tags/windows" style=color:#ff7d73>
+                windows
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/dll" style=color:#ffa2c4>
                 dll
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/blog/tags/windows-via-c/" style=background:#ff7d73>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                windows_via_c
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/note/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+        <span class="tag">
+            
+            <a href="/blog/tags/note" style=color:#1bccbc>
                 note
             </a>
         </span>
         
+    </div>
+
+    <a href="/blog/2021/03/16/dllRemoteInject/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/blog/2021/03/16/winViaC-dll/">
+        <h2>
+            windows核心编程 dll笔记
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
         
-        
-        <span>
-            <a href="/blog/tags/re/" style=background:#ff7d73>
+        <span class="category">
+            <a href="/blog/categories/windows">
                 <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+                    <a-icon type="book" theme="filled" /></span>
+                windows
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/3/16
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            看windows核心编程dll注入部分的时候做的一些笔记
+            
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/windows" style=color:#ff7d73>
+                windows
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/dll" style=color:#1bccbc>
+                dll
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/windows_via_c" style=color:#00bcd4>
+                windows_via_c
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/note" style=color:#1bccbc>
+                note
+            </a>
+        </span>
+        
+    </div>
+
+    <a href="/blog/2021/03/16/winViaC-dll/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+<div class="post">
+
+    <a href="/blog/2020/12/08/geek20/">
+        <h2>
+            geek20
+        </h2>
+    </a>
+
+    <div class="category-and-date">
+
+        
+        <span class="category">
+            <a href="/blog/categories/ctf">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" /></span>
+                ctf
+            </a>
+        </span>
+        
+
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2020/12/8
+        </span>
+
+    </div>
+
+    <div class="excerpt">
+        <div class="content" v-pre>
+            
+            2020年极客大挑战部分wp（除了web基本都有）
+            
+            
+        </div>
+    </div>
+
+    <div class="post-tags">
+        
+        <span class="icon">
+            <a-icon type="tags" theme="filled" />
+        </span>
+        
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/ctf" style=color:#ff7d73>
+                ctf
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/geek_challenge" style=color:#00bcd4>
+                geek_challenge
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/wp" style=color:#00bcd4>
+                wp
+            </a>
+        </span>
+        
+        <span class="tag">
+            
+            <a href="/blog/tags/re" style=color:#879cff>
                 re
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/blog/tags/pwn/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+        <span class="tag">
+            
+            <a href="/blog/tags/pwn" style=color:#ffa2c4>
                 pwn
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/blog/tags/crypt/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+        <span class="tag">
+            
+            <a href="/blog/tags/crypt" style=color:#ffa2c4>
                 crypt
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/blog/tags/misc/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
+        <span class="tag">
+            
+            <a href="/blog/tags/misc" style=color:#00bcd4>
                 misc
             </a>
         </span>
         
-        
-        
-        <span>
-            <a href="/blog/tags/ComputerGraphics/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                ComputerGraphics
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/Programing/" style=background:#1bccbc>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                Programing
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/cpp/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                cpp
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/持续更新/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                持续更新
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/web/" style=background:#879cff>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                web
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/api-hook/" style=background:#00bcd4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                api_hook
-            </a>
-        </span>
-        
-        
-        
-        <span>
-            <a href="/blog/tags/reversecore/" style=background:#ffa2c4>
-                <span class="icon">
-                    <a-icon type="tag" theme="filled" />
-                </span>
-                reversecore
-            </a>
-        </span>
-        
-        
     </div>
-    <div id="archives">
-        
-        <a-timeline>
-            <a-timeline-item color="#a5c2f5">
-                <a-card hoverable>
-                    <div class="item-time">2020/12/8</div>
-                    <a href="/blog/2020/12/08/geek20/">
-                        <h3>geek20</h3>
-                    </a>
-                    <div class="info">
-                        
-                        <span class="category">
-                            <a href="/blog/categories/ctf">
-                                <span class="icon">
-                                    <a-icon type="book" theme="filled" />
-                                </span>
-                                ctf
-                            </a>
-                        </span>
-                        
 
-                        
-                        <span class="tags">
-                            <span class="icon">
-                                <a-icon type="tags" theme="filled" />
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/ctf" style=color:#1bccbc>
-                                    ctf
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/geek_challenge" style=color:#00bcd4>
-                                    geek_challenge
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/wp" style=color:#00bcd4>
-                                    wp
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/re" style=color:#00bcd4>
-                                    re
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/pwn" style=color:#1bccbc>
-                                    pwn
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/crypt" style=color:#879cff>
-                                    crypt
-                                </a>
-                            </span>
-                            
-                            <span class="tag">
-                                
-                                <a href="/blog/tags/misc" style=color:#1bccbc>
-                                    misc
-                                </a>
-                            </span>
-                            
-                        </span>
-                        
-                    </div>
-                </a-card>
-            </a-timeline-item>
-        </a-timeline>
+    <a href="/blog/2020/12/08/geek20/ " class="go-post">
+        阅读全文
+    </a>
+</div>
+
+
+             
+<div class="page-current">
+
+    <div class="prev">
+        
+        <a href="/blog/">
+            <span class="page-num">
+                <a-icon type="caret-left" theme="filled" />
+            </span>
+        </a>
         
     </div>
-    <script>
-        new Vue({
-            el: '#archives'
-        })
-    </script>
+
+    <div class="page-index">
+
+        
+        <span>
+
+            
+
+            
+            <a href="/blog/">
+                <span class="page-num">
+                    1
+                </span>
+            </a>
+        </span>
+        
+
+        <span class="current">
+            2
+        </span>
+
+        
+
+    </div>
+
+    <div class="next">
+        
+    </div>
+
+</div>
+
+        </div>
+    </div>
+    
+    <div id="home-card">
+        
+<a-affix :offset-top="card_top">
+    <a-card class="card-style" style="width: 300px">
+        <div class="avatar">
+            <img src="/blog/imgs/child.jpg " alt="头像">
+        </div>
+        <div class="name">
+            御史神风
+        </div>
+        <div class="descriptions">
+            
+            <div class="description">
+                芜湖~好耶!
+            </div>
+            
+        </div>
+        <div class="icon-links">
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://github.com/windgodm">
+
+                    
+                    <a-icon type="github"
+                        theme="filled" />
+                    
+                </a>
+            </span>
+            
+            <span class="icon-link">
+                <a target="_blank" rel="noopener" href="https://space.bilibili.com/24256070">
+
+                    
+                    <a-icon type="play-square"
+                        theme="" />
+                    
+                </a>
+            </span>
+            
+        </div>
+        <div class="friend-links">
+            
+            <div class="friend-link">
+                <a href="/blog/rss2.xml">
+                    RSS
+                </a>
+            </div>
+            
+            <div class="friend-link">
+                <a href="/">
+                    windgodm
+                </a>
+            </div>
+            
+        </div>
+    </a-card>
+</a-affix>
+    </div>
+    
 </div>
                      
 <footer id="footer">

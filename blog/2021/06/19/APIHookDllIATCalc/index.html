@@ -1,0 +1,333 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BraveTroops || APIHook DLL注入实现IAT钩取 笔记</title>
+    <meta name="author" content="御史神风">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="BraveTroops" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">BraveTroops</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>BraveTroops</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>APIHook DLL注入实现IAT钩取 笔记 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/6/19
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/windows">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                windows
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/windows" style=color:#1bccbc>
+                    windows
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/note" style=color:#1bccbc>
+                    note
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/api_hook" style=color:#ffa2c4>
+                    api_hook
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/reversecore" style=color:#00bcd4>
+                    reversecore
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="APIHook-DLL注入实现IAT钩取-笔记"><a href="#APIHook-DLL注入实现IAT钩取-笔记" class="headerlink" title="APIHook - DLL注入实现IAT钩取 笔记"></a>APIHook - DLL注入实现IAT钩取 笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><blockquote>
+<p>技术摘要：</p>
+<p><strong>动态</strong>修改<strong>进程内存</strong>中的<strong>IAT</strong>。利用<strong>DLL注入</strong>修改API的IAT。</p>
+</blockquote>
+<p>起源是逆向工程核心原理里面以计算器SetWindowText()API钩取为例讲解利用dll注入修改api的iat来实现钩取。<br>该例子目标是把显示的阿拉伯数字改成中文数字。</p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p>补丁函数（新api）要申明为WINAPI，即stdcall。c++默认的是cdecl，由调用者处理栈。而api使用的stdcall是由被调用者处理的。如果不声明为stdcall，调用钩取api结束时本应该清理栈，而实际上不会清理。同样钩取api中调用原api时，原api结束时清理了一次栈，而我们的钩取api又会再处理一次栈。这时esp指向的不是旧ebp，pop ebp时就会触发错误。<br>实际上由于win32 api为stdcall，使得我们的新函数对栈不需要做特殊操作。</p>
+<h2 id="实例：计算器SetWindowTextW-（x32）"><a href="#实例：计算器SetWindowTextW-（x32）" class="headerlink" title="实例：计算器SetWindowTextW()（x32）"></a>实例：计算器SetWindowTextW()（x32）</h2><p>该例子对象是xp的x32的calc.exe，运行环境是在win10中。（我把xp虚拟机里的计算机复制出来了）在win10的计算机中尝试失败了，还没找到原因。</p>
+<p>下面的步骤按运行时的执行顺序来写。</p>
+<h3 id="1-dll注入"><a href="#1-dll注入" class="headerlink" title="1 dll注入"></a>1 dll注入</h3><p>第一步是把后面编写好的dll注入到目标程序中，关于dll注入的内容在此略过。</p>
+<h3 id="2-dll"><a href="#2-dll" class="headerlink" title="2 dll"></a>2 dll</h3><p>当 dll第一次加载进进程(DLL_PROCESS_ATTACH) 时先记录原本api的地址，如何再hook。</p>
+<p>当 卸载dll(DLL_PROCESS_DETACH) 时unhook。</p>
+<p>因为hook实际上就是把iat中被钩取api的地址换成补丁函数的地址，而unhook的过程则反过来把iat中补丁函数地址换回原本地址，所以可以统一写成一个函数hook_iat()。该函数会将oldFunc替换成newFunc。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hook_iat</span><span class="params">(<span class="keyword">char</span>* pszDllName, HANDLE oldFunc, HANDLE newFunc)</span></span>;</span><br><span class="line"><span class="function">BOOL WINAPI <span class="title">MySetWindowTextW</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    HWND    hWnd,</span></span></span><br><span class="line"><span class="function"><span class="params">    LPCWSTR lpString</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL APIENTRY <span class="title">DllMain</span><span class="params">(HMODULE hModule,</span></span></span><br><span class="line"><span class="function"><span class="params">    DWORD  ul_reason_for_call,</span></span></span><br><span class="line"><span class="function"><span class="params">    LPVOID lpReserved</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (ul_reason_for_call) &#123;</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">        <span class="comment">// save origin api</span></span><br><span class="line">        pOriginFunc = GetProcAddress(GetModuleHandleW(<span class="string">L&quot;user32.dll&quot;</span>), <span class="string">&quot;SetWindowTextW&quot;</span>);</span><br><span class="line">        <span class="comment">// hook</span></span><br><span class="line">        hook_iat(<span class="string">&quot;user32.dll&quot;</span>, pOriginFunc, MySetWindowTextW);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">        <span class="comment">//unhook</span></span><br><span class="line">        hook_iat(<span class="string">&quot;user32.dll&quot;</span>, MySetWindowTextW, pOriginFunc);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> TRUE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-改写iat（hook-iat-）"><a href="#3-改写iat（hook-iat-）" class="headerlink" title="3 改写iat（hook_iat()）"></a>3 改写iat（hook_iat()）</h3><p>这个函数用于把iat中名为 pszDllName 的 library 中的 oldFunc 换成 newFunc。本质上整段代码就是在解析pe文件以及遍历iat。这里不做详细解析，详见反射注入文章[2]中 处理导入表 部分内容。</p>
+<p>其中用到了size_t，这是个与机器有关的unsigned类型。说人话就是按32位编译时是32位；按64位编译时是64位。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">hook_iat</span><span class="params">(<span class="keyword">char</span>* pszDllName, HANDLE oldFunc, HANDLE newFunc)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// pe</span></span><br><span class="line">    PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)GetModuleHandleW(<span class="literal">NULL</span>);</span><br><span class="line">    PIMAGE_NT_HEADERS32 pNtHeader = (PIMAGE_NT_HEADERS32)padd(pDosHeader, pDosHeader-&gt;e_lfanew);</span><br><span class="line">    PIMAGE_IMPORT_DESCRIPTOR pImportDescriptor = (PIMAGE_IMPORT_DESCRIPTOR)padd(pDosHeader, pNtHeader-&gt;OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_IMPORT].VirtualAddress);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// find dll</span></span><br><span class="line">    LPCSTR pszLibName;</span><br><span class="line">    <span class="keyword">for</span> (; pImportDescriptor-&gt;Name; pImportDescriptor++) &#123;</span><br><span class="line">        pszLibName = (LPCSTR)padd(pDosHeader, pImportDescriptor-&gt;Name);</span><br><span class="line">        <span class="keyword">if</span> (_stricmp(pszLibName, pszDllName) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// find old func</span></span><br><span class="line">            PIMAGE_THUNK_DATA32 pThunk = (PIMAGE_THUNK_DATA32)padd(pDosHeader, pImportDescriptor-&gt;FirstThunk);</span><br><span class="line">            <span class="keyword">for</span> (; pThunk-&gt;u1.Function; pThunk++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (pThunk-&gt;u1.Function == (<span class="keyword">size_t</span>)oldFunc) &#123;</span><br><span class="line">                    <span class="comment">// replace</span></span><br><span class="line">                    DWORD dwOldProt;</span><br><span class="line">                    VirtualProtect((LPVOID)&amp;pThunk-&gt;u1.Function, <span class="number">4</span>, PAGE_EXECUTE_READWRITE, &amp;dwOldProt);</span><br><span class="line">                    pThunk-&gt;u1.Function = (<span class="keyword">size_t</span>)newFunc;</span><br><span class="line">                    VirtualProtect((LPVOID)&amp;pThunk-&gt;u1.Function, <span class="number">4</span>, dwOldProt, &amp;dwOldProt);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-新api（补丁代码-MySetWindowTextW-）"><a href="#4-新api（补丁代码-MySetWindowTextW-）" class="headerlink" title="4 新api（补丁代码 MySetWindowTextW()）"></a>4 新api（补丁代码 MySetWindowTextW()）</h3><p>这部分代码参考逆向工程核心原理[1]，这个函数用于将unicode的数字转换成中文数字。temp数组的目的是构造一个0结尾的字符串，用于_wtoi。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">BOOL</span><span class="params">(WINAPI *SETWINDOWTEXTW)</span><span class="params">(HWND, LPCWSTR)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function">BOOL WINAPI <span class="title">MySetWindowTextW</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    HWND    hWnd,</span></span></span><br><span class="line"><span class="function"><span class="params">    LPCWSTR lpString</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">wchar_t</span> pNumTab[] = <span class="string">L&quot;零一二三四五六七八九&quot;</span>;</span><br><span class="line">    <span class="keyword">wchar_t</span> temp[<span class="number">2</span>] = &#123; <span class="number">0</span>, &#125;; <span class="comment">// for wtoi</span></span><br><span class="line">    <span class="keyword">size_t</span> i, nLen, nIndex;</span><br><span class="line"></span><br><span class="line">    nLen = wcslen(lpString);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; nLen; i++) &#123;</span><br><span class="line">        <span class="comment">// translate</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="string">L&#x27;0&#x27;</span> &lt;= lpString[i] &amp;&amp; lpString[i] &lt;= <span class="string">L&#x27;9&#x27;</span>) &#123;</span><br><span class="line">            temp[<span class="number">0</span>] = lpString[i];</span><br><span class="line">            nIndex = _wtoi(temp);</span><br><span class="line">            ((<span class="keyword">wchar_t</span>*)lpString)[i] = pNumTab[nIndex];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ((SETWINDOWTEXTW)pOriginFunc)(hWnd, lpString);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[1] 逆向工程核心原理：part4-API钩取：第32章-计算器显示中文数字</p>
+<p>[2] 反射注入 <a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-266929.htm">看雪文章链接</a> <a href="https://windgodm.github.io/blog/2021/04/11/reflectiveDllInjection/">博客文章链接</a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 BraveTroops
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @御史神风
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>
