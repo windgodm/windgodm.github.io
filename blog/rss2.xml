@@ -9,8 +9,83 @@
     <atom:link href="https://windgodm.github.io/blog/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description></description>
-    <pubDate>Thu, 24 Jun 2021 08:49:50 GMT</pubDate>
+    <pubDate>Wed, 11 Aug 2021 09:06:37 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>简易压缩壳笔记</title>
+      <link>https://windgodm.github.io/blog/2021/08/04/SimplePack/</link>
+      <guid>https://windgodm.github.io/blog/2021/08/04/SimplePack/</guid>
+      <pubDate>Wed, 04 Aug 2021 04:00:00 GMT</pubDate>
+      
+      <description>写一个简易的压缩壳的笔记。</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="简易压缩壳笔记"><a href="#简易压缩壳笔记" class="headerlink" title="简易压缩壳笔记"></a>简易压缩壳笔记</h1><h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">加壳器：</span><br><span class="line">读取被加壳文件</span><br><span class="line">加载壳代码</span><br><span class="line">复制壳代码的section header</span><br><span class="line">修改ep并保存oep</span><br><span class="line">加密</span><br><span class="line">压缩</span><br><span class="line">清空import、iat directory，保存import directory</span><br><span class="line">清空tls directoru，保存directory的AddressOfCallBacks</span><br><span class="line">重定位壳代码</span><br><span class="line">复制壳代码重定位表，并修改reloc directory</span><br><span class="line">修复壳代码重定位表</span><br><span class="line">写入文件</span><br><span class="line"></span><br><span class="line">壳代码：</span><br><span class="line">遍历ldr获取ntdll中的函数</span><br><span class="line">获取用于解壳的函数的地址</span><br><span class="line">解压</span><br><span class="line">解密</span><br><span class="line">修复并加密iat</span><br><span class="line">重定位</span><br><span class="line">tls</span><br><span class="line">反调试</span><br><span class="line">跳转到oep</span><br></pre></td></tr></table></figure><h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><p>替换reloc等section时，只需要修改data directory即可。</p><p>增加section可以只增加header，写入文件时再追加写入。</p><p>通过dll形式写壳代码可以比较方便生成重定位表、iat等。</p><h3 id="关于导入表"><a href="#关于导入表" class="headerlink" title="关于导入表"></a>关于导入表</h3><p>关于加密iat，常见的做法对每一个api申请一块可执行内存作为跳转函数，然后把iat中api地址换成跳转函数地址。<br>此做法需要判断导入表中导入的是函数还是变量。如果是变量显然会出错。我采取的做法是判断地址是否位于dll的text段。</p><p>关于import_descriptor。该结构有OriginalFirstThunk和FirstThunk两个结构体数组的指针。理论上文件中时两个结构体应该都指向同一个地址，加载为image后FT指向IAT的RVA。<br>有时可能会出现OFT为0，只有FT的情况。</p>]]></content:encoded>
+      
+      
+      <category domain="https://windgodm.github.io/blog/categories/windows/">windows</category>
+      
+      
+      <category domain="https://windgodm.github.io/blog/tags/windows/">windows</category>
+      
+      <category domain="https://windgodm.github.io/blog/tags/pack/">pack</category>
+      
+      
+      <comments>https://windgodm.github.io/blog/2021/08/04/SimplePack/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>WX数据库自动解密（已失效）</title>
+      <link>https://windgodm.github.io/blog/2021/07/22/WeChatDBDecrypt/</link>
+      <guid>https://windgodm.github.io/blog/2021/07/22/WeChatDBDecrypt/</guid>
+      <pubDate>Thu, 22 Jul 2021 04:00:00 GMT</pubDate>
+      
+      <description>wx数据库解密，用hook dump密钥。</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="微信-PC端-数据库-自动解密"><a href="#微信-PC端-数据库-自动解密" class="headerlink" title="微信 PC端 数据库 自动解密"></a>微信 PC端 数据库 自动解密</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><blockquote><p>环境:</p><p>win10家庭中文版 10.0.19043 x64（本机）</p><p>微信 3.3.0.115</p><p>openssl-1.0.2r</p></blockquote><p>PC密码为32字节。</p><h2 id="手动流程"><a href="#手动流程" class="headerlink" title="手动流程"></a>手动流程</h2><h3 id="获取密码"><a href="#获取密码" class="headerlink" title="获取密码"></a>获取密码</h3><p>打开微信（不点登录）。</p><p>打开Odb附加WeChat.exe。</p><p>查找-&gt;可执行模块-&gt;WeChatWin。</p><p>用插件找ASCII字符串（我打了中文搜索补丁，直接用中文搜索的搜索ASCII字符串）。</p><p>然后搜索字符串<code>DBFactory::encryptDB</code>，跳转到第一次出现该字符串的位置。这里旧版本可能是第二个字符串的位置。3.3版本我找到了两个，都跳转过去看看，其中一个push语句下面有一个TEST，另一个只有一个call就return了。要找的是有TEST那个。</p><p>该TEST语句就是比较密码的地方，双击设置断点。然后运行并登录。</p><p>停在断点时，选择edx在数据窗口中跟随。</p><p>然后把从edx开始的32字节的数据dump出来，该32字节的数据就是密码。</p><h3 id="从源码安装openssl"><a href="#从源码安装openssl" class="headerlink" title="从源码安装openssl"></a>从源码安装openssl</h3><p>需要用到openssl，据说sqlcipher用的是最低版本的openssl。这里使用1.0.2u。</p><p>首先安装perl。（<a href="http://www.activestate.com/activeperl/downloads/%EF%BC%89">http://www.activestate.com/activeperl/downloads/）</a></p><p>然后运行 x86 Native Tools Command Prompt for VS 2019 这个shell。</p><p>激活perl环境</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">state activate</span><br><span class="line">cd /d D:\openssl-1.0.2u\</span><br></pre></td></tr></table></figure><p>编译</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">perl Configure VC-WIN64A no-asm -prefix=D:\Program Files\openssl102u</span><br><span class="line">ms\do_ms.bat</span><br><span class="line">nmake -f ms\ntdll.mak</span><br></pre></td></tr></table></figure><p>检查</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmake -f ms\ntdll.mak test</span><br></pre></td></tr></table></figure><p>安装</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmake -f ms\ntdll.mak install</span><br></pre></td></tr></table></figure><p>奇怪的是最后还是安装到了E:\usr\local\ssl\这个目录下</p><h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p>这里分享vs2019解密的过程。</p><p>在项目的属性页 -&gt; C/C++ -&gt; 常规 -&gt; 附加包含目录 中添加openssl的include目录。</p><p>在项目的属性页 -&gt; 链接器 -&gt; 常规 -&gt; 附加库目录 中添加openssl的include目录。</p><p>在项目的属性页 -&gt; 链接器 -&gt; 输入 -&gt; 附加依赖项 中添加libeay32.lib和ssleay32.lib。</p><p>然后编译运行看雪文章中的代码。（链接见参考）</p><p>然后把E:\usr\local\ssl\bin\中的两个dll复制exe的根目录，exe才能正常运行。</p><p>接着把exe和两个dll复制到微信缓存文件的目录/对应用户目录/Msg/里，微信缓存目录名为WeChat Files，可以在微信设置中查到。</p><p>复制过去后运行exe即可。</p><h2 id="自动获取（代码修改api-hook）"><a href="#自动获取（代码修改api-hook）" class="headerlink" title="自动获取（代码修改api hook）"></a>自动获取（代码修改api hook）</h2><h3 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h3><p>代码参考附件。</p><p>总流程如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">复制dll到wx根目录</span><br><span class="line">打开微信</span><br><span class="line">注入dll</span><br><span class="line">微信登录</span><br><span class="line">dll把密钥dump出来</span><br><span class="line">复制聊天记录文件</span><br><span class="line">解密</span><br></pre></td></tr></table></figure><p>其中dll所做的是修改目标函数的起始字节为jmp，跳转到hook函数中，然后读取原函数的参数，把密钥写到文件里，再unhook并跳回原来的位置继续运行。</p><p>因为比较懒，自动化代码没有写卸载dll的东西。另外有时会出现dump出密码后，微信直接闪退的情况。</p><h3 id="dll"><a href="#dll" class="headerlink" title="dll"></a>dll</h3><p>通过注入dll实现修改代码的hook来dump出密钥。</p><p>通过GetModuleHandle获取WeChatWin.dll的基址，然后加上目标api的偏移得到api的地址。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hApi = GetModuleHandleW(<span class="string">L&quot;WeChatWin&quot;</span>) + apiOffset;</span><br><span class="line">hook_by_5b_code(hApi, (PROC)HookFunc);</span><br></pre></td></tr></table></figure><p>然后查看api的代码可以推算出密钥首地址为*(*(esp - 4 + 0x10))，减4是因为有个push ebp。然后剩下的照抄test edx, edx前的代码得到。</p><p>当然也可以直接在test edx, edx的地方跳转，这样直接读edx就行。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">__declspec(naked) <span class="function"><span class="keyword">void</span> <span class="title">HookFunc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        DWORD _esp = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">        __asm &#123;</span><br><span class="line">            mov _esp, esp;</span><br><span class="line">            pusha;</span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">        DWORD addr = *(DWORD*)(*(DWORD*)(_esp + <span class="number">0xc</span>));</span><br><span class="line">        HANDLE hFile = CreateFileW(<span class="string">L&quot;./pw.bin&quot;</span>, GENERIC_WRITE, <span class="number">0</span>, <span class="number">0</span>, CREATE_NEW, FILE_ATTRIBUTE_NORMAL, <span class="literal">NULL</span>);</span><br><span class="line">        WriteFile(hFile, (LPCVOID)addr, <span class="number">32</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        CloseHandle(hFile);</span><br><span class="line">        unhook_by_5b_code(hApi);</span><br><span class="line"> </span><br><span class="line">        __asm &#123;</span><br><span class="line">            popa;</span><br><span class="line">            mov ecx, <span class="number">0x53677E70</span>;</span><br><span class="line">            jmp ecx;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="食用指南"><a href="#食用指南" class="headerlink" title="食用指南"></a>食用指南</h3><p>GetPwHookCodeDll.cpp是dll的代码。AllInOne.cpp是自动解密的代码。需要提供wx根目录位置和微信用户文件的位置。</p><p>wx用户文件的位置：在wx的缓存文件（该目录在wx设置中有）中，有一个叫wxid_xxxxxxx的文件夹，xxxxx是你的初始wx id，这个就是对应wx账户的本地文件。</p><p>假设wx根目录是<code>D:\WeChat</code>，用户目录是<code>D:\WeChat Files\wxid_bravetroops</code>。<br>方法一：在自动程序根目录中打开shell，输入<code>AllInOne.exe D:\WeChat D:\WeChat Files\wxid_bravetroops</code>即可。<br>方法二：在程序根目录中有个aio_cf.txt，第一行输入wx根目录，第二行输入用户目录即可。</p><p>最后会在根目录生成一个dec_ChatMsg.db的文件，就是解密后的聊天记录。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[<a href="https://bbs.pediy.com/thread-251303.htm">原创]PC版微信数据库解密详细教程-软件逆向-看雪论坛-安全社区|安全招聘|bbs.pediy.com</a></p><p><a href="https://blog.csdn.net/qq_35014708/article/details/89354694">window10 安装 OpenSSL_sun-CSDN博客</a></p>]]></content:encoded>
+      
+      
+      <category domain="https://windgodm.github.io/blog/categories/windows/">windows</category>
+      
+      
+      <category domain="https://windgodm.github.io/blog/tags/WX/">WX</category>
+      
+      <category domain="https://windgodm.github.io/blog/tags/Database/">Database</category>
+      
+      
+      <comments>https://windgodm.github.io/blog/2021/07/22/WeChatDBDecrypt/#disqus_thread</comments>
+      
+    </item>
+    
+    <item>
+      <title>HammingCode</title>
+      <link>https://windgodm.github.io/blog/2021/07/14/HammingCode/</link>
+      <guid>https://windgodm.github.io/blog/2021/07/14/HammingCode/</guid>
+      <pubDate>Wed, 14 Jul 2021 04:00:00 GMT</pubDate>
+      
+      <description>HammingCode笔记。</description>
+      
+      
+      
+      <content:encoded><![CDATA[<h1 id="Hamming-Code"><a href="#Hamming-Code" class="headerlink" title="Hamming Code"></a>Hamming Code</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>多次奇偶校验，下标为2<sup>n</sup>的位作为奇偶校验位，校验对象为所有位中小标第n位为1的位，显然包括了一半的数据。</p><p>第0位一般弃置，或者作为奇偶校验位的奇偶校验位，这样就可以判断是否存在多个错误。</p><p>每一个奇偶校验位都校验了一半的数据，通过检测哪些校验位是错的即可找到哪一位数据出错。</p><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>三种理解思路：一是多组奇偶校验；二是异或；三是线性代数。</p><p>只能纠错一个位，以及判断是否有多个错误，校验结果即为错误位。</p><p>若奇偶校验位的个数为n：</p><p>汉明码的位数：2<sup>n</sup> = 1 &lt;&lt; n</p><p>数据位的位数：2<sup>n</sup>-n-1 = (1&lt;&lt;n)-n-1</p><p>校验位按下标排序，错误的置一，其余置零，若结果不为0，得到的就是错误位的下标。</p><h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>该算法目前已经不常用。实际使用通常配合其他通信技巧使用。下面是我分别用python和c++实现的代码。实现方式为把原始数据分块再编码成汉明码。</p><p><a href="https://github.com/windgodm/Algorithm/tree/master/HammingCode">Algorithm/HammingCode at master · windgodm/Algorithm (github.com)</a></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.bilibili.com/video/BV1WK411N7kz">https://www.bilibili.com/video/BV1WK411N7kz</a></p><p><a href="https://www.bilibili.com/video/BV1pV411y7E8">https://www.bilibili.com/video/BV1pV411y7E8</a></p>]]></content:encoded>
+      
+      
+      <category domain="https://windgodm.github.io/blog/categories/Algorithm/">Algorithm</category>
+      
+      
+      <category domain="https://windgodm.github.io/blog/tags/note/">note</category>
+      
+      <category domain="https://windgodm.github.io/blog/tags/Error-Correction/">Error_Correction</category>
+      
+      
+      <comments>https://windgodm.github.io/blog/2021/07/14/HammingCode/#disqus_thread</comments>
+      
+    </item>
     
     <item>
       <title>APIHook DLL注入实现代码钩取 笔记</title>
@@ -132,11 +207,11 @@
       <guid>https://windgodm.github.io/blog/2021/05/24/games101Note/</guid>
       <pubDate>Mon, 24 May 2021 14:12:26 GMT</pubDate>
       
-      <description>cg入门课程games101的笔记，内容比较随缘，有重点内容会单独写,&lt;br&gt;只是个人爱好，大概率会咕咕咕,&lt;br&gt;更新到第三课(21-05-24)</description>
+      <description>cg入门课程games101的笔记，内容比较随缘，有重点内容会单独写,&lt;br&gt;只是个人爱好，大概率会咕咕咕,&lt;br&gt;更新到第五课(21-08-10)</description>
       
       
       
-      <content:encoded><![CDATA[<p>更新到第三课</p><p><a href="/blog/note/games101Note.html">games 101 note</a></p>]]></content:encoded>
+      <content:encoded><![CDATA[<p>games101-5</p><p><a href="/blog/note/games101Note.html">games 101 note</a></p>]]></content:encoded>
       
       
       <category domain="https://windgodm.github.io/blog/categories/ComputerGraphics/">ComputerGraphics</category>
