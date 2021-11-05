@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BraveTroops || pbctf21 btree wp</title>
+    <meta name="author" content="御史神风">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="BraveTroops" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">BraveTroops</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>BraveTroops</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>pbctf21 btree wp </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/10/9
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/CTF">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                CTF
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/ctf" style=color:#00bcd4>
+                    ctf
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/re" style=color:#1bccbc>
+                    re
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/wp" style=color:#00bcd4>
+                    wp
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="PBCTF21-RE-BinaryTree-Beaengine-dijkstra解法"><a href="#PBCTF21-RE-BinaryTree-Beaengine-dijkstra解法" class="headerlink" title="PBCTF21 RE BinaryTree Beaengine+dijkstra解法"></a>PBCTF21 RE BinaryTree Beaengine+dijkstra解法</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>代码是动态解密的，简单的xor，解密一块执行一块。每一块结尾会设置rbx，rbx决定下一块被解密的代码。</p>
+<p>实际上每一块代码相当于一个节点，里面有一个根据输入的jz，决定下一个rbx以及一个cost，所以相当于一颗二叉树。</p>
+<p>每次经过一个节点都会累加cost。</p>
+<p>根节点对应的代码块会判断cost是否小于等于某个值，然后输出成功信息。</p>
+<p>如果只有唯一解那么显然是找最短路。</p>
+<p>解题思路是beaengine解析代码生成图，用dijkstra算法求最短路并输出路径。<br>事实上只有一条最短路，刚刚等于那个值。</p>
+<h2 id="beaengine提取图"><a href="#beaengine提取图" class="headerlink" title="beaengine提取图"></a>beaengine提取图</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;fstream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;windows.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BEA_ENGINE_STATIC</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&quot;BeaEngine.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib,<span class="meta-string">&quot;legacy_stdio_definitions.lib&quot;</span>)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(lib, <span class="meta-string">&quot;BeaEngine.lib&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Block</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> index;</span><br><span class="line">	<span class="keyword">char</span> buf[<span class="number">32</span>];</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> path[<span class="number">25503</span>][<span class="number">4</span>] = &#123; <span class="number">0</span>, &#125;; <span class="comment">// 0(path/rbx,cost) 1(path/rbx,cost)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">queue</span>&lt;<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, Block*&gt;&gt; rbxs; <span class="comment">// rbx(xor offset), lastBlock</span></span><br><span class="line"><span class="keyword">int</span> sa = <span class="number">0x176</span>;</span><br><span class="line">BYTE* firstBlock;</span><br><span class="line"><span class="keyword">int</span> blockNum = <span class="number">0</span>;</span><br><span class="line"><span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt; dised;</span><br><span class="line">Block xorBlock = &#123;</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	<span class="number">0x48</span>, <span class="number">0xc7</span>, <span class="number">0xc0</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x48</span>,</span><br><span class="line">	<span class="number">0xc7</span>, <span class="number">0xc7</span>, <span class="number">0x01</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x48</span>, <span class="number">0xc7</span>,</span><br><span class="line">	<span class="number">0xc2</span>, <span class="number">0x05</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x49</span>, <span class="number">0x81</span>, <span class="number">0xf9</span>,</span><br><span class="line">	<span class="number">0xda</span>, <span class="number">0x49</span>, <span class="number">0x00</span>, <span class="number">0x00</span>, <span class="number">0x7f</span>, <span class="number">0x07</span>, <span class="number">0x4c</span>, <span class="number">0x89</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function">Block* <span class="title">Xor</span><span class="params">(<span class="keyword">char</span>* firstBlock, UInt64 offset, Block &amp;oldBlock)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Block* pB = <span class="keyword">new</span> Block();</span><br><span class="line">	pB-&gt;index = offset &gt;&gt; <span class="number">5</span>;</span><br><span class="line">	blockNum++;</span><br><span class="line">	<span class="keyword">char</span>* xorBuf = firstBlock + offset;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">		pB-&gt;buf[i] = xorBuf[i] ^ oldBlock.buf[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pB;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Jmp</span><span class="params">(DISASM&amp; infos)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	UINT64 nextVA = infos.Instruction.AddrValue;</span><br><span class="line">	UINT64 curVA = infos.VirtualAddr;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// jmp</span></span><br><span class="line">	infos.EIP += nextVA - curVA;</span><br><span class="line">	infos.VirtualAddr = nextVA;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DisasmCode</span><span class="params">(<span class="keyword">char</span>* stBuf, UINT64 stVA, Block* curBlock, <span class="keyword">int</span> rbx, <span class="keyword">int</span> branch)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	DISASM infos;</span><br><span class="line">	<span class="keyword">size_t</span> len;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// init</span></span><br><span class="line">	<span class="built_in">memset</span>(&amp;infos, <span class="number">0</span>, <span class="keyword">sizeof</span>(DISASM));</span><br><span class="line">	infos.EIP = (UINT64)stBuf;</span><br><span class="line">	infos.VirtualAddr = (UINT64)stVA;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span> (infos.Error == <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="comment">// limit</span></span><br><span class="line">		UInt64 offset = infos.EIP - (UINT64)curBlock-&gt;buf;</span><br><span class="line">		<span class="keyword">if</span> (offset &lt; <span class="number">0</span> || offset &gt;= <span class="number">32</span>) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (infos.VirtualAddr == <span class="number">0x400080</span>) &#123;<span class="comment">// xor</span></span><br><span class="line">			rbxs.push(<span class="built_in">make_pair</span>(rbx, curBlock));</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">			</span><br><span class="line"></span><br><span class="line">		<span class="comment">//disasm</span></span><br><span class="line">		len = Disasm(&amp;infos);</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; hex &lt;&lt; infos.VirtualAddr &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; infos.CompleteInstr &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// jmp</span></span><br><span class="line">		<span class="keyword">if</span> (infos.Instruction.BranchType == JmpType) &#123;</span><br><span class="line">			<span class="keyword">if</span> (infos.Instruction.AddrValue == <span class="number">0x400080</span>) &#123; <span class="comment">// xor</span></span><br><span class="line">				rbxs.push(<span class="built_in">make_pair</span>(rbx, curBlock));</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			Jmp(infos);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// jmp</span></span><br><span class="line">		<span class="keyword">if</span> (infos.Instruction.BranchType) &#123;</span><br><span class="line">			<span class="comment">// false branch</span></span><br><span class="line">			DisasmCode((<span class="keyword">char</span>*)(infos.EIP + len), infos.VirtualAddr + len, curBlock, rbx, <span class="number">0</span>);</span><br><span class="line">			<span class="comment">// true branch</span></span><br><span class="line">			branch = <span class="number">1</span>;</span><br><span class="line">			Jmp(infos);</span><br><span class="line">			<span class="keyword">continue</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// if modified rbx (0x8)</span></span><br><span class="line">		<span class="keyword">if</span> (((infos.Operand1.AccessMode == WRITE) &amp;&amp; (infos.Operand1.Registers.gpr &amp; REG3))) &#123;</span><br><span class="line">			rbx += infos.Operand2.Memory.Displacement;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// if add r9 (0x200)</span></span><br><span class="line">		<span class="keyword">if</span> ((infos.Operand1.AccessMode == <span class="number">3</span>) &amp;&amp; (infos.Operand1.Registers.gpr &amp; <span class="number">0x200</span>)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (branch &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">				path[curBlock-&gt;index][branch * <span class="number">2</span>] = rbx &gt;&gt; <span class="number">5</span>;</span><br><span class="line">				path[curBlock-&gt;index][branch * <span class="number">2</span> + <span class="number">1</span>] = infos.Instruction.Immediat;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// go on</span></span><br><span class="line">		infos.EIP += len;</span><br><span class="line">		infos.VirtualAddr += len;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ifstream fin;</span><br><span class="line">	ofstream fout;</span><br><span class="line">	BYTE* fileBuf;</span><br><span class="line">	Block* lastBlock;</span><br><span class="line">	Block* pB;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// read file</span></span><br><span class="line"></span><br><span class="line">	fin.open(<span class="string">&quot;E:\\works\\ctf\\21pbctf\\re_BinaryTree\\main.elf&quot;</span>, ios::in | ios::binary);</span><br><span class="line"></span><br><span class="line">	fin.seekg(<span class="number">0</span>, ios::end);</span><br><span class="line">	<span class="keyword">size_t</span> fileSize = fin.tellg();</span><br><span class="line">	fin.seekg(<span class="number">0</span>, ios::beg);</span><br><span class="line">	fileBuf = (BYTE*)<span class="built_in">malloc</span>(fileSize);</span><br><span class="line">	fin.read((<span class="keyword">char</span>*)fileBuf, fileSize);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;fileSize:&quot;</span> &lt;&lt; dec &lt;&lt; fileSize &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	fin.close();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// disasm</span></span><br><span class="line"></span><br><span class="line">	firstBlock = fileBuf + sa;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;rbx:0&quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	pB = Xor((<span class="keyword">char</span>*)firstBlock, <span class="number">0</span>, xorBlock);</span><br><span class="line">	dised.insert(<span class="number">0</span>);</span><br><span class="line">	DisasmCode(pB-&gt;buf, <span class="number">0x4000AD</span>, pB, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">while</span> (!rbxs.empty()) &#123;</span><br><span class="line">		<span class="built_in">pair</span>&lt;<span class="keyword">int</span>, Block*&gt; t = rbxs.front();</span><br><span class="line">		rbxs.pop();</span><br><span class="line"></span><br><span class="line">		lastBlock = t.second;</span><br><span class="line"></span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;num:&quot;</span> &lt;&lt; dec &lt;&lt; blockNum &lt;&lt; <span class="built_in">endl</span>; <span class="comment">// 0x639f * 2</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span> (dised.insert(t.first).second) &#123;</span><br><span class="line">			<span class="comment">// not disasm</span></span><br><span class="line">			pB = Xor((<span class="keyword">char</span>*)firstBlock, t.first, *lastBlock);</span><br><span class="line">			<span class="comment">// disasm</span></span><br><span class="line">			DisasmCode(pB-&gt;buf, <span class="number">0x4000AD</span>, pB, <span class="number">0</span>, <span class="number">-1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// write file</span></span><br><span class="line"></span><br><span class="line">	fout.open(<span class="string">&quot;E:\\works\\ctf\\21pbctf\\re_BinaryTree\\main_.elf&quot;</span>, ios::out | ios::binary);</span><br><span class="line">	fout.write((<span class="keyword">char</span>*)fileBuf, fileSize);</span><br><span class="line">	fout.close();</span><br><span class="line"></span><br><span class="line">	<span class="comment">// write file</span></span><br><span class="line"></span><br><span class="line">	fout.open(<span class="string">&quot;E:\\works\\ctf\\21pbctf\\re_BinaryTree\\path.txt&quot;</span>, ios::out);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; blockNum; i++) &#123;</span><br><span class="line">		fout &lt;&lt; path[i][<span class="number">0</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">1</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">2</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">3</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	fout.close();</span><br><span class="line"></span><br><span class="line">	fout.open(<span class="string">&quot;E:\\works\\ctf\\21pbctf\\re_BinaryTree\\pathDij.txt&quot;</span>, ios::out);</span><br><span class="line">	<span class="keyword">int</span> E = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; blockNum; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (path[i][<span class="number">1</span>]) &#123;</span><br><span class="line">			fout &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">0</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">1</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			fout &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">2</span>] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; path[i][<span class="number">3</span>] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">			E += <span class="number">2</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot;,&quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	fout.close();</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;N E\n&quot;</span>;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; dec &lt;&lt; blockNum &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; E &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">	<span class="comment">// 25503 50942 0</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="dijkstra算法"><a href="#dijkstra算法" class="headerlink" title="dijkstra算法"></a>dijkstra算法</h2><p>自己打oi时留下的板子，忘记有没有加优化了，不过这个版本比较方便记录path</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 有向+无向，不能用于负权图</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> <span class="meta-keyword">warning</span>(disable:4996)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;list&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;utility&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="built_in">pair</span>&lt;<span class="keyword">int</span>, <span class="keyword">int</span>&gt; TR;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> v;</span><br><span class="line">	<span class="keyword">int</span> w;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> roots[] = &#123; <span class="number">1225</span>,<span class="number">1226</span>,<span class="number">1891</span>,<span class="number">1892</span>,<span class="number">3929</span>,<span class="number">3930</span>,<span class="number">4929</span>,<span class="number">4930</span>,<span class="number">6295</span>,<span class="number">6296</span>,<span class="number">9313</span>,<span class="number">9314</span>,<span class="number">9813</span>,<span class="number">9814</span>,<span class="number">15465</span>,<span class="number">15466</span>,<span class="number">15713</span>,<span class="number">15714</span>,<span class="number">17301</span>,<span class="number">17302</span>,<span class="number">18767</span>,<span class="number">18768</span>,<span class="number">18841</span>,<span class="number">18842</span>,<span class="number">19145</span>,<span class="number">19146</span>,<span class="number">19279</span>,<span class="number">19280</span>,<span class="number">19927</span>,<span class="number">19928</span>,<span class="number">22501</span>,<span class="number">22502</span> &#125;;</span><br><span class="line"><span class="keyword">int</span> path[<span class="number">50943</span>];</span><br><span class="line"><span class="keyword">int</span> path1[<span class="number">50943</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">bool</span> <span class="title">min</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (a != <span class="number">-1</span> &amp;&amp; (a &lt; b || b == <span class="number">-1</span>))</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	FILE* r = freopen(<span class="string">&quot;E:\\works\\ctf\\21pbctf\\re_BinaryTree\\pathDij.txt&quot;</span>, <span class="string">&quot;r&quot;</span>, <span class="built_in">stdin</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> i, j, u, v, w;</span><br><span class="line">	Edge edge;</span><br><span class="line">	<span class="built_in">list</span>&lt;Edge&gt;::iterator it;</span><br><span class="line">	TR tr;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> N, E, start, iMin, nMin;</span><br><span class="line">	<span class="keyword">int</span>* flag;</span><br><span class="line">	<span class="built_in">set</span>&lt;TR&gt; ds;</span><br><span class="line">	<span class="keyword">int</span>* d;</span><br><span class="line">	<span class="built_in">list</span>&lt;Edge&gt;* es;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d&quot;</span>, &amp;N, &amp;E);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;start);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 初始化</span></span><br><span class="line">	flag = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">	d = <span class="keyword">new</span> <span class="keyword">int</span>[N];</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">		flag[i] = <span class="number">0</span>;</span><br><span class="line">		d[i] = <span class="number">-1</span>;</span><br><span class="line">		path[i] = <span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	ds.insert(<span class="built_in">make_pair</span>(<span class="number">0</span>, start));</span><br><span class="line">	d[start] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 读图</span></span><br><span class="line">	es = <span class="keyword">new</span> <span class="built_in">list</span>&lt;Edge&gt;[N];</span><br><span class="line">	<span class="keyword">int</span> boo = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; E; i++) &#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">&quot;%d %d %d&quot;</span>, &amp;u, &amp;v, &amp;w);</span><br><span class="line">		edge.v = v;</span><br><span class="line">		edge.w = w;</span><br><span class="line">		es[u].push_back(edge);</span><br><span class="line">		<span class="keyword">if</span> (boo) &#123;</span><br><span class="line">			boo = <span class="number">0</span>;</span><br><span class="line">			path1[u] = v;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			boo = <span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// dij</span></span><br><span class="line">	<span class="keyword">while</span> (!ds.empty()) &#123;</span><br><span class="line">		<span class="comment">// 找最小未完成节点（确保d[iMin] != -1）</span></span><br><span class="line">		iMin = ds.begin()-&gt;second;</span><br><span class="line">		nMin = ds.begin()-&gt;first;</span><br><span class="line">		ds.erase(ds.begin());</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 标记完成</span></span><br><span class="line">		u = iMin;</span><br><span class="line">		flag[u] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">// 依次松弛</span></span><br><span class="line">		<span class="keyword">for</span> (it = es[u].begin(); it != es[u].end(); it++) &#123;</span><br><span class="line">			v = it-&gt;v;</span><br><span class="line">			w = d[iMin] + it-&gt;w;</span><br><span class="line">			<span class="keyword">if</span> (w == d[v])</span><br><span class="line">				path[v] = u;</span><br><span class="line">			<span class="keyword">if</span> (min(w, d[v])) &#123;</span><br><span class="line">				d[v] = w;</span><br><span class="line">				<span class="comment">// 加入set</span></span><br><span class="line">				tr = <span class="built_in">make_pair</span>(w, v);</span><br><span class="line">				<span class="keyword">if</span> (ds.find(tr) != ds.end()) ds.erase(tr);</span><br><span class="line">				ds.insert(tr);</span><br><span class="line">				path[v] = u;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 输出结果</span></span><br><span class="line">	<span class="comment">// for (i = 0; i &lt; N; i++)</span></span><br><span class="line">	<span class="comment">//	printf(&quot;%d:%d\n&quot;, i, d[i]);</span></span><br><span class="line">	<span class="comment">// putchar(10);</span></span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;\nans:\n&quot;</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; d[roots[i]] &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;\nshortest:\n&quot;</span>;</span><br><span class="line">	<span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (d[roots[i]] &lt;= <span class="number">0x49DA</span>) &#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; roots[i] &lt;&lt; <span class="string">&quot;:&quot;</span> &lt;&lt; d[roots[i]] &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;\npath\n&quot;</span>;</span><br><span class="line">	i = <span class="number">19279</span>;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		i = path[i];</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">	&#125; <span class="keyword">while</span> (i);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;\npath\n&quot;</span>;</span><br><span class="line">	i = <span class="number">19279</span>;</span><br><span class="line">	<span class="keyword">do</span> &#123;</span><br><span class="line">		<span class="comment">// path[i] -&gt; i</span></span><br><span class="line">		<span class="keyword">if</span> (path1[path[i]] == i)</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt; <span class="number">0</span>;</span><br><span class="line">		i = path[i];</span><br><span class="line">	&#125; <span class="keyword">while</span> (i);</span><br><span class="line"></span><br><span class="line">	i = <span class="number">0</span>;</span><br><span class="line">	j = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (!es[i].empty()) &#123;</span><br><span class="line">		i = es[i].begin()-&gt;v;</span><br><span class="line">		j++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;\nl:&quot;</span> &lt;&lt; j &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 释放内存</span></span><br><span class="line">	<span class="keyword">delete</span>[] flag;</span><br><span class="line">	<span class="keyword">delete</span>[] es;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="long2bytes"><a href="#long2bytes" class="headerlink" title="long2bytes"></a>long2bytes</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> long_to_bytes</span><br><span class="line"></span><br><span class="line">ans = <span class="string">&#x27;01111101001101110110010101100101011001100110001001100001001110000011000000110110001100100110001000110001011001100011011100110001001100000011100101100011001100110011000100110101011000110110000100111000001101110011010001100001001100100011001001100010011000100011000000110011011001010011000000110011011000110011010000110111011001010101111100100001001000010110010101100100011011110110001101011111011001110110111001101001011110010110011001101001011001000110111101101101001011010110011001101100011001010111001101011111011011100110100101011111011010000111010001100001011100000101111101110100011100110110010101110100011100100110111101101000011100110101111101100101011010000111010001011111011001110110111001101001011001000110111001101001011001100010000100100001011110110110011001110100011000110110001001110000&#x27;</span></span><br><span class="line">ans = <span class="built_in">int</span>(ans, <span class="number">2</span>)</span><br><span class="line">print(long_to_bytes(ans)[::-<span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>[<a target="_blank" rel="noopener" href="https://bbs.pediy.com/thread-269815.htm">原创]PBCTF21 RE BinaryTree Beaengine+dijkstra解法-bbs.pediy.com</a></p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 BraveTroops
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @御史神风
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>

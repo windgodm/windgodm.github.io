@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BraveTroops || 逆向工程核心原理 R3静态反调试 笔记</title>
+    <meta name="author" content="御史神风">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="BraveTroops" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">BraveTroops</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>BraveTroops</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<link rel="stylesheet" href="/blog/css/post-body.css">
+<div class="article">
+    <div>
+        <h1>逆向工程核心原理 R3静态反调试 笔记 </h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <a-icon type="calendar" theme="filled" />
+            </span>
+            2021/10/16
+        </span>
+
+        
+        <span class="category">
+            <a href="/blog/categories/Windows">
+                <span class="icon">
+                    <a-icon type="book" theme="filled" />
+                </span>
+                Windows
+            </a>
+        </span>
+        
+
+        
+
+        <span class="tags">
+            <span class="icon">
+                <a-icon type="tags" theme="filled" />
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/windows" style=color:#879cff>
+                    windows
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/note" style=color:#ff7d73>
+                    note
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/reversecore" style=color:#00bcd4>
+                    reversecore
+                </a>
+            </span>
+            
+            <span class="tag">
+                
+                <a href="/blog/tags/antiDebug" style=color:#ffa2c4>
+                    antiDebug
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+
+    <div class="content" v-pre>
+        <h1 id="逆向工程核心原理-R3静态反调试-笔记"><a href="#逆向工程核心原理-R3静态反调试-笔记" class="headerlink" title="逆向工程核心原理 R3静态反调试 笔记"></a>逆向工程核心原理 R3静态反调试 笔记</h1><h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>主要是R3层面的静态反调试手段</p>
+<p>参考逆向工程核心原理51章静态反调试</p>
+<p>涉及的API：</p>
+<ul>
+<li><p>IsDebuggerPresent()</p>
+</li>
+<li><p>NtQueryInformationProcess()</p>
+</li>
+<li><p>NtQuerySystemInformation()</p>
+</li>
+<li><p>NtQueryObject()</p>
+</li>
+<li><p>ZwSetInformationThread()</p>
+</li>
+<li><p>DebugActiveProcessStop()</p>
+</li>
+</ul>
+<h2 id="51-2-涉及peb的检查方式"><a href="#51-2-涉及peb的检查方式" class="headerlink" title="51.2 涉及peb的检查方式"></a>51.2 涉及peb的检查方式</h2><table>
+<thead>
+<tr>
+<th>偏移</th>
+<th>名称</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0x2</td>
+<td>BeingDebugged</td>
+<td>UChar</td>
+</tr>
+<tr>
+<td>0xc</td>
+<td>Ldr</td>
+<td>Ptr32 _PEB_LDR_DATA</td>
+</tr>
+<tr>
+<td>0x18</td>
+<td>ProcessHesap</td>
+<td>Ptr32 Void</td>
+</tr>
+<tr>
+<td>0x68</td>
+<td>NtGlobalFlag</td>
+<td>Uint48</td>
+</tr>
+</tbody></table>
+<p><strong>BeingDebugged 标志位</strong> </p>
+<p>处于调试状态，BeingDebugged被设置为1。<br>IsDebuggerPresent()检查 BeingDebugged。</p>
+<p><strong>Ldr 堆内存检查</strong></p>
+<p>调试进程未使用堆内存填充<code>0xFEEEFEEE</code>(x32)。<br>该方法只在xp中有效，且附加不存在该特征：<br>PEB_LDR_DATA结构体在堆内存中创建，扫描该区域是否存在上述特征。</p>
+<p><strong>ProcessHeap 标志</strong></p>
+<p>processheap结构//todo<br>该方法只在xp中有效，且附加不存在该特征：<br>正常情况Heap.Flags=2，Heap.ForceFlags=0</p>
+<p><strong>NtGlobalFlag Bitmap</strong></p>
+<p>该方法通过附加无效<br>调试状态PEB.NtGlobalFlag |= 0x70<br>由以下位组成<br>FLG_HEAP_ENABLE_TAIL_CHECK (0x10)<br>FLG_HEAP_ENABLE_FREE_CHECK (0x20)<br>FLG_HEAP_VALIDATE_PARAMETERS (0x40)</p>
+<h2 id="51-3-NtQueryInformationProcess"><a href="#51-3-NtQueryInformationProcess" class="headerlink" title="51.3 NtQueryInformationProcess()"></a>51.3 NtQueryInformationProcess()</h2><p>该函数用于查询进程信息。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> <span class="title">PROCESSINFOCLASS</span> &#123;</span></span><br><span class="line">	ProcessDebugPort = <span class="number">0x7</span>,</span><br><span class="line">	ProcessDebugObjectHandle = <span class="number">0x1e</span>,</span><br><span class="line">	ProcessDebugFlags = <span class="number">0x1f</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MSDN</span></span><br><span class="line"><span class="function">__kernel_entry NTSTATUS <span class="title">NtQueryInformationProcess</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HANDLE           ProcessHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">  PROCESSINFOCLASS ProcessInformationClass,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVOID            ProcessInformation,</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG            ProcessInformationLength,</span></span></span><br><span class="line"><span class="function"><span class="params">  PULONG           ReturnLength</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>第二个参数指定查询的信息。</p>
+<p>非调试情况第三个参数指向地址被填充的值：<br>ProcessDebugPort 填充为0<br>ProcessDebugObjectHandle 填充为0<br>ProcessDebugFlags 填充为1</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">CheckNtQfP_API</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// get api</span></span><br><span class="line"></span><br><span class="line">	HMODULE hNtdll = GetModuleHandleW(<span class="string">L&quot;NtDll.dll&quot;</span>);</span><br><span class="line">	<span class="keyword">auto</span> pNtQueryInformationProcess = (PNtQueryInformationProcess)GetProcAddress(hNtdll, <span class="string">&quot;NtQueryInformationProcess&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// temp values</span></span><br><span class="line"></span><br><span class="line">	HANDLE hCurProc = GetCurrentProcess();</span><br><span class="line">	<span class="keyword">bool</span> beingDebug = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Process Debug Port (0x7)</span></span><br><span class="line"></span><br><span class="line">	DWORD dwDebugPort;</span><br><span class="line">	pNtQueryInformationProcess(hCurProc, ProcessDebugPort, &amp;dwDebugPort, <span class="keyword">sizeof</span>(dwDebugPort), <span class="literal">NULL</span>);</span><br><span class="line">    </span><br><span class="line">	<span class="keyword">if</span> (dwDebugPort) beingDebug = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Process Debug Object Handle (0x1E)</span></span><br><span class="line"></span><br><span class="line">	HANDLE hDebugObject = <span class="literal">NULL</span>;</span><br><span class="line">	pNtQueryInformationProcess(hCurProc, ProcessDebugObjectHandle, &amp;hDebugObject, <span class="keyword">sizeof</span>(hDebugObject), <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (hDebugObject) beingDebug = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// Process Debug Flags (0x1F)</span></span><br><span class="line"></span><br><span class="line">	BOOL bDebugFlag = <span class="literal">true</span>;</span><br><span class="line">	pNtQueryInformationProcess(hCurProc, ProcessDebugFlags, &amp;bDebugFlag, <span class="keyword">sizeof</span>(bDebugFlag), <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (bDebugFlag == <span class="number">0</span>) beingDebug = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// return</span></span><br><span class="line">    </span><br><span class="line">	<span class="keyword">return</span> beingDebug;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="51-4-NtQuerySystemInformation"><a href="#51-4-NtQuerySystemInformation" class="headerlink" title="51.4 NtQuerySystemInformation()"></a>51.4 NtQuerySystemInformation()</h2><p>该函数用于查询系统信息，可以检测系统是否在调试模式下运行。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> <span class="title">SYSTEM_INFORMATION_CLASS</span> &#123;</span></span><br><span class="line">	SystemKernelDebuggerInformation = <span class="number">0x23</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">SYSTEM_KERNEL_DEBUGGER_INFORMATION</span> &#123;</span></span><br><span class="line">	BOOLEAN DebuggerEnabled;</span><br><span class="line">	BOOLEAN DebuggerNotPresent;</span><br><span class="line">&#125;SYSTEM_KERNEL_DEBUGGER_INFORMATION, *PSYSTEM_KERNEL_DEBUGGER_INFORMATION;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MSDN</span></span><br><span class="line"><span class="function">__kernel_entry NTSTATUS <span class="title">NtQuerySystemInformation</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  SYSTEM_INFORMATION_CLASS SystemInformationClass,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVOID                    SystemInformation,</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG                    SystemInformationLength,</span></span></span><br><span class="line"><span class="function"><span class="params">  PULONG                   ReturnLength</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>非调试情况，debuggerInfo.DebuggerEnabled = 0</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">CheckNtQSI_API</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// get api</span></span><br><span class="line"></span><br><span class="line">	HMODULE hNtdll = GetModuleHandleW(<span class="string">L&quot;NtDll.dll&quot;</span>);</span><br><span class="line">	<span class="keyword">auto</span> pNtQuerySystemInformation = (PNtQuerySystemInformation)GetProcAddress(hNtdll, <span class="string">&quot;NtQuerySystemInformation&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// SystemKernelDebuggerInformation(0x23)</span></span><br><span class="line"></span><br><span class="line">	SYSTEM_KERNEL_DEBUGGER_INFORMATION debuggerInfo = &#123; <span class="number">0</span>, &#125;;</span><br><span class="line">	pNtQuerySystemInformation(SystemKernelDebuggerInformation, &amp;debuggerInfo, <span class="keyword">sizeof</span>(debuggerInfo), <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> debuggerInfo.DebuggerEnabled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>应对</strong></p>
+<p>xp中修改boot.ini，删除<code>/debugport=coml /baudrate=115200 /Debug</code></p>
+<p>win7 cmd中执行<code>bcdedit /debug off</code></p>
+<h2 id="51-5-NtQueryObject"><a href="#51-5-NtQueryObject" class="headerlink" title="51.5 NtQueryObject()"></a>51.5 NtQueryObject()</h2><p>该函数用于查询内核对象，可以用于检测是否存在调试对象类型的内核对象。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">OBJECT_INFORMATION_CLASS</span> &#123;</span></span><br><span class="line">	ObjectAllTypesInformation = <span class="number">3</span></span><br><span class="line">&#125; OBJECT_INFORMATION_CLASS;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">UNICODE_STRING</span> &#123;</span> <span class="comment">// sizeof = 8</span></span><br><span class="line">	USHORT Length;</span><br><span class="line">	USHORT MaximumLength;</span><br><span class="line">	PWSTR Buffer;</span><br><span class="line">&#125; UNICODE_STRING, * PUNICODE_STRING;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_TYPE_INFORMATION</span> &#123;</span> <span class="comment">// sizeof = 16</span></span><br><span class="line">	UNICODE_STRING TypeName;</span><br><span class="line">	ULONG TotalNumberOfHandles;</span><br><span class="line">	ULONG TotalNumberOfObjects;</span><br><span class="line">&#125; OBJECT_TYPE_INFORMATION, * POBJECT_TYPE_INFORMATION;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">OBJECT_ALL_INFORMATION</span> &#123;</span></span><br><span class="line">	ULONG NumberOfObjectsTypes;</span><br><span class="line">	OBJECT_TYPE_INFORMATION ObjectTypeInformation[<span class="number">1</span>];</span><br><span class="line">&#125; OBJECT_ALL_INFORMATION, *POBJECT_ALL_INFORMATION;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MSDN</span></span><br><span class="line"><span class="function">__kernel_entry NTSYSCALLAPI NTSTATUS <span class="title">NtQueryObject</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HANDLE                   Handle,</span></span></span><br><span class="line"><span class="function"><span class="params">  OBJECT_INFORMATION_CLASS ObjectInformationClass,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVOID                    ObjectInformation,</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG                    ObjectInformationLength,</span></span></span><br><span class="line"><span class="function"><span class="params">  PULONG                   ReturnLength</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分析返回的OBJECT-ALL-INFORMATION"><a href="#分析返回的OBJECT-ALL-INFORMATION" class="headerlink" title="分析返回的OBJECT_ALL_INFORMATION"></a>分析返回的OBJECT_ALL_INFORMATION</h3><p>ObjectInformation中会填充OBJECT_ALL_INFORMATION，需要遍历这个结构，我在一次调试中记录下了一些地址用于分析该结构<br>下面是返回的ObjectInformation指向的buf的数据内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">0x750000: OBJECT_ALL_INFORMATION</span><br><span class="line">  +0h : NumberOfObjectsTypes(ULONG)&#x3D; 67</span><br><span class="line">  +4h : ObjectTypeInformation(STRUCT)</span><br><span class="line"></span><br><span class="line">0x750004: (OBJECT_TYPE_INFORMATION)</span><br><span class="line">  +0h : ObjectTypeInformation[0].TypeName.Length(USHORT)&#x3D; 8</span><br><span class="line">  +2h : ObjectTypeInformation[0].TypeName.LengthMaximumLength(USHORT)&#x3D; 10</span><br><span class="line">  +4h : ObjectTypeInformation[0].TypeName.Buffer(wchar_t*)&#x3D; 0x750064</span><br><span class="line">  +8h : ObjectTypeInformation[0].TotalNumberOfHandles(ULONG)&#x3D; 67</span><br><span class="line">  +ch: ObjectTypeInformation[0].TotalNumberOfObjects(ULONG)&#x3D; 0</span><br><span class="line"></span><br><span class="line">0x750014: (BYTE[80]) &#x2F;&#x2F; unknown</span><br><span class="line"></span><br><span class="line">0x750064: (wchar[5]) &#x3D; L&quot;Type&quot;</span><br><span class="line"></span><br><span class="line">0x75006E: (BYTE[2]) &#x3D; \x00\x00</span><br><span class="line"></span><br><span class="line">0x750070: (OBJECT_TYPE_INFORMATION)</span><br><span class="line">  +0h : ObjectTypeInformation[1].TypeName.Length(USHORT)&#x3D; 18</span><br><span class="line">  +2h : ObjectTypeInformation[1].TypeName.LengthMaximumLength(USHORT)&#x3D; 20</span><br><span class="line">  +4h : ObjectTypeInformation[1].TypeName.Buffer(wchar_t*)&#x3D; 0x7500D0</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">0x750080: (BYTE[80]) &#x2F;&#x2F; unknown</span><br><span class="line"></span><br><span class="line">0x7500D0: (wchar[10]) &#x3D; L&quot;Directory&quot;</span><br><span class="line"></span><br><span class="line">0x7500E4: (OBJECT_TYPE_INFORMATION)</span><br><span class="line">  +0h : ObjectTypeInformation[2].TypeName.Length(USHORT)&#x3D; 24</span><br><span class="line">  +2h : ObjectTypeInformation[2].TypeName.LengthMaximumLength(USHORT)&#x3D; 26</span><br><span class="line">  +4h : ObjectTypeInformation[2].TypeName.Buffer(wchar_t*)&#x3D; 0x750144</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">0x7500F4: (BYTE[80]) &#x2F;&#x2F; unknown</span><br><span class="line"></span><br><span class="line">0x750144: (wchar[13]) &#x3D; L&quot;SymbolicLink&quot;</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>可以看到内存布局可简化为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NumberOfObjectsTypes</span><br><span class="line">ObjectTypeInformation[0]</span><br><span class="line">80bytes undocument date</span><br><span class="line">wchar[]</span><br><span class="line">ObjectTypeInformation[1]</span><br><span class="line">80bytes undocument date</span><br><span class="line">wchar[]</span><br><span class="line">ObjectTypeInformation[2]</span><br><span class="line">80bytes undocument date</span><br><span class="line">wchar[]</span><br></pre></td></tr></table></figure>
+
+<p>我的理解是<code>OBJECT_ALL_INFORMATION</code>中的<code>OBJECT_TYPE_INFORMATION[]</code>是个元素长度可变的”数组”</p>
+<p><code>OBJECT_TYPE_INFORMATION[]</code>“数组”每个元素由已知的<code>OBJECT_TYPE_INFORMATION（16bytes）+ 未文档化数据（80bytes）+ wchar[]（长度不定）</code>组成</p>
+<p>同时根据书中代码的<code>&amp;0xfffffffc</code>可知是4字节对齐，也就是元素起始地址为4的倍数</p>
+<h3 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h3><p>这里着重分析next那部分代码。</p>
+<p>书中的做法是：<br>首先是找到<code>最后一个字符地址</code>（wchar字符串以\x00\x00结尾）<br>然后清楚低两位（实现4字节对齐）<br>然后加上4</p>
+<p>不考虑对齐，<code>最后一个字符地址+2</code>=<code>下一个元素地址</code>（wchar字符串以\x00\x00结尾）</p>
+<p>如果最后一个字符地址已经对齐，那么下一个元素地址就不对齐，偏移原本为+2，为了对齐变成+4</p>
+<p>如果最后一个字符地址不对其，那么下一个元素地址就对齐，偏移原本为+2，但字符地址清楚了低两位，所以变成+4</p>
+<p>所以最后不管是否对齐都是+4</p>
+<p>也可以先猜测下一个元素地址，然后再判断是否对齐，不对齐就+2，但这样更费劲</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">CheckNtQO_API</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">bool</span> beingDebug = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// get api</span></span><br><span class="line"></span><br><span class="line">	HMODULE hNtdll = GetModuleHandleW(<span class="string">L&quot;NtDll.dll&quot;</span>);</span><br><span class="line">	<span class="keyword">auto</span> pNtQueryObject = (PNtQueryObject)GetProcAddress(hNtdll, <span class="string">&quot;NtQueryObject&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// ObjectAllTypesInformation(0x3)</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// get size</span></span><br><span class="line">	ULONG lSize = <span class="number">0</span>;</span><br><span class="line">	pNtQueryObject(<span class="number">0</span>, ObjectAllTypesInformation, &amp;lSize, <span class="keyword">sizeof</span>(lSize), &amp;lSize);</span><br><span class="line">	<span class="comment">// alloc memory</span></span><br><span class="line">	<span class="keyword">char</span>* buf = <span class="number">0</span>;</span><br><span class="line">	buf = (<span class="keyword">char</span>*)VirtualAlloc(<span class="literal">NULL</span>, lSize, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);</span><br><span class="line">	<span class="comment">// get info</span></span><br><span class="line">	NTSTATUS sta;</span><br><span class="line">	sta = pNtQueryObject((HANDLE)<span class="number">0xFFFFFFFF</span>, ObjectAllTypesInformation, buf, lSize, <span class="literal">NULL</span>);</span><br><span class="line">	<span class="keyword">auto</span> pObjAllInfo = (POBJECT_ALL_INFORMATION)buf;</span><br><span class="line">	<span class="comment">// check</span></span><br><span class="line">	ULONG objNum = pObjAllInfo-&gt;NumberOfObjectsTypes;</span><br><span class="line">	<span class="keyword">auto</span> pObjTypeInfo = pObjAllInfo-&gt;ObjectTypeInformation;</span><br><span class="line">	<span class="keyword">for</span> (ULONG i = <span class="number">0</span>; i &lt; objNum; i++) &#123;</span><br><span class="line">		<span class="keyword">if</span> (wcscmp(<span class="string">L&quot;DebugObject&quot;</span>, pObjTypeInfo-&gt;TypeName.Buffer) == <span class="number">0</span>) &#123;</span><br><span class="line">			beingDebug = <span class="literal">true</span>;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">// next</span></span><br><span class="line">        <span class="comment">// go to last wchar</span></span><br><span class="line">		pObjTypeInfo = (POBJECT_TYPE_INFORMATION)((ULONG)pObjTypeInfo-&gt;TypeName.Buffer + pObjTypeInfo-&gt;TypeName.Length);</span><br><span class="line">        <span class="comment">// alignment</span></span><br><span class="line">		pObjTypeInfo = (POBJECT_TYPE_INFORMATION)(((ULONG)pObjTypeInfo) &amp; <span class="number">0xFFFFFFFC</span>);</span><br><span class="line">        <span class="comment">// alignment offset</span></span><br><span class="line">		pObjTypeInfo = (POBJECT_TYPE_INFORMATION)((ULONG)pObjTypeInfo + <span class="keyword">sizeof</span>(DWORD));</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (buf)</span><br><span class="line">		VirtualFree(buf, <span class="number">0</span>, MEM_RELEASE);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> beingDebug;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="51-6-ZwSetInformationThread"><a href="#51-6-ZwSetInformationThread" class="headerlink" title="51.6 ZwSetInformationThread()"></a>51.6 ZwSetInformationThread()</h2><p>该函数用于设置线程信息，可将线程隐藏起来，使调试器收不到消息</p>
+<p>DebugActiveProcessStop()则可以分离调试器和被调试线程</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">enum</span> _<span class="title">THREADINFOCLASS</span> &#123;</span></span><br><span class="line">	ThreadHideFromDebugger = <span class="number">0x11</span></span><br><span class="line">&#125; THREADINFOCLASS;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MSDN</span></span><br><span class="line"><span class="function">NTSYSAPI NTSTATUS <span class="title">ZwSetInformationThread</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">  HANDLE          ThreadHandle,</span></span></span><br><span class="line"><span class="function"><span class="params">  THREADINFOCLASS ThreadInformationClass,</span></span></span><br><span class="line"><span class="function"><span class="params">  PVOID           ThreadInformation,</span></span></span><br><span class="line"><span class="function"><span class="params">  ULONG           ThreadInformationLength</span></span></span><br><span class="line"><span class="function"><span class="params">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>用法示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Detach</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// get api</span></span><br><span class="line"></span><br><span class="line">	HMODULE hNtdll = GetModuleHandleW(<span class="string">L&quot;NtDll.dll&quot;</span>);</span><br><span class="line">	<span class="keyword">auto</span> pZwSetInformationThread = (PZwSetInformationThread)GetProcAddress(hNtdll, <span class="string">&quot;ZwSetInformationThread&quot;</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// detach</span></span><br><span class="line">	pZwSetInformationThread(GetCurrentThread(), ThreadHideFromDebugger, <span class="number">0</span>, <span class="number">0</span>);·</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Stop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// #include &lt;windows.h&gt;</span></span><br><span class="line">    DebugActiveProcessStop(GetCurrentProcessId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="51-7-TLS"><a href="#51-7-TLS" class="headerlink" title="51.7 TLS"></a>51.7 TLS</h2><p>tls回调函数会在ep之前执行（实际上是在创建终止进程时都会执行）</p>
+<p>示例：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> comment(linker, <span class="meta-string">&quot;/INCLUDE:__tls_used&quot;</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg(<span class="meta-string">&quot;.CRT$XLX&quot;</span>)</span></span><br><span class="line">PIMAGE_TLS_CALLBACK pTLS_callbacks[] = &#123; TLS_CALLBACK1, TLS_CALLBACK2 &#125;;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> data_seg()</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> NTAPI <span class="title">TLS_CALLBACK1</span><span class="params">(PVOID DllHandle, DWORD Reason, PVOID Reserved)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">switch</span> (Reason) &#123;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_ATTACH:</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;tls:process attach\n\n&quot;</span>;</span><br><span class="line">        <span class="comment">// YourAntiDebug();</span></span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_ATTACH:</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;tls:thread attach\n\n&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_THREAD_DETACH:</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;tls:thread detach\n\n&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	<span class="keyword">case</span> DLL_PROCESS_DETACH:</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; <span class="string">&quot;tls:process detach\n\n&quot;</span>;</span><br><span class="line">		<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="51-8-ETC"><a href="#51-8-ETC" class="headerlink" title="51.8 ETC"></a>51.8 ETC</h2><p>检测窗口 FindWindow()</p>
+<p>检测进程 CreateToolhelp32Snapshot()</p>
+<p>检测计算机名</p>
+<p>检测运行路径</p>
+<p>检测虚拟机</p>
+
+    </div>
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <div id="comment">
+        <div id="gitalk-container">
+        </div>
+    </div>
+    
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2021 BraveTroops
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @御史神风
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script>
+    const gitalk = new Gitalk({
+        clientID: '',
+        clientSecret: '',
+        repo: 'hexo-theme-particle',      // The repository of store comments,
+        owner: 'windgodm',
+        admin: ['windgodm'],
+        language: 'zh-CN',
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+        distractionFreeMode: true  // Facebook-like distraction free mode
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+</body>
+
+</html>
