@@ -1,0 +1,657 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN ">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BraveTroops || kernel</title>
+    <meta name="author" content="御史神风">
+    <meta name="description" content=" ">
+    <meta name="keywords" content=" ">
+    <link rel="icon" href="/blog//blog/imgs/child.jpg">
+    <link rel="stylesheet" href="/blog/css/antd.min.css">
+    
+    <link rel="stylesheet" href="/blog/css/maiden-theme.css">
+    
+    <script src="/blog/js/vue.js"></script>
+    <script src="/blog/js/antd.min.js"></script>
+<meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/blog/rss2.xml" title="BraveTroops" type="application/rss+xml">
+</head>
+
+<body>
+
+    <div id="loading"
+        style="height: 100vh; width: 100%; position: fixed;display: flex;z-index: 200; justify-content: space-between;">
+        <div id="loadleft" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div id="loadright" style="width: 50%;background-color: #ffffff;transition: width 0.6s ease-out;"></div>
+        <div
+            style="position: fixed; height: 100vh; width: 100%;display: flex;justify-content: center;align-items: center;">
+            <div id="loadcontent"
+                style="width:400px;height:400px;padding:50px;border-radius:50%;display:flex;justify-content:center;align-items:center;border:solid 10px#a3ddfb; text-align:center;opacity:1;transition:opacity 0.3s ease-out;">
+                <div>
+                    <h2>LOADING...</h2>
+                    <p>加载过慢请开启缓存(浏览器默认开启)</p>
+                    <div>
+                        <img src="/blog/dancingkitty.gif" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="layout">
+        <transition name="into">
+            <div v-show="show_page" style="display: none;">
+                <div id="menu_show">
+                     
+<nav id="menu">
+    <div class="desktop-menu">
+        <a href="/blog/">
+            <span class="title">BraveTroops</span>
+        </a>
+        
+        <a href="/">
+            <span>
+                <a-icon type="home" theme="filled" />
+            </span>
+            <span>home</span>
+        </a>
+        
+        <a href="/contact.html">
+            <span>
+                <a-icon type="idcard" theme="filled" />
+            </span>
+            <span>about</span>
+        </a>
+        
+        <a href="/making">
+            <span>
+                <a-icon type="folder" theme="filled" />
+            </span>
+            <span>archives</span>
+        </a>
+        
+        <a href="/blog/categories">
+            <span>
+                <a-icon type="book" theme="filled" />
+            </span>
+            <span>categories</span>
+        </a>
+        
+        <a href="/blog/tags">
+            <span>
+                <a-icon type="tags" theme="filled" />
+            </span>
+            <span>tags</span>
+        </a>
+        
+    </div>
+
+    <div :class="'phone-menu ' + menu_show" id="phone-menu">
+        <div :class="'title'" @click="menu_show=!menu_show">
+            <span style="margin-right: 10px;">
+                <a-icon type="appstore" theme="filled" />
+            </span>
+            <span>BraveTroops</span>
+        </div>
+        <div class="items" v-show="menu_show">
+            
+            <a href="/">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="home" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">home</div>
+                </div>
+            </a>
+            
+            <a href="/contact.html">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="idcard" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">about</div>
+                </div>
+            </a>
+            
+            <a href="/making">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="folder" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">archives</div>
+                </div>
+            </a>
+            
+            <a href="/blog/categories">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="book" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">categories</div>
+                </div>
+            </a>
+            
+            <a href="/blog/tags">
+                <div class="item">
+                    <div style="min-width:20px; max-width:50px; width: 10%">
+                        <a-icon type="tags" theme="filled" />
+                    </div>
+                    <div style="min-width:100px;max-width: 150%;width: 20%;">tags</div>
+                </div>
+            </a>
+            
+        </div>
+        <div class="curtain" v-show="menu_show"></div>
+    </div>
+
+</nav>
+                </div>
+
+                <div id="main">
+                     
+<div class="categories-tags">
+    
+    <div class="all-s">
+        
+        
+        <span>
+            <a href="/blog/tags/ctf/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                ctf
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/geek-challenge/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                geek_challenge
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/re/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                re
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/pwn/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                pwn
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/crypt/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                crypt
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/misc/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                misc
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/wp/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                wp
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/windows/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                windows
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/dll/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                dll
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/note/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                note
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/windows-via-c/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                windows_via_c
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/ComputerGraphics/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                ComputerGraphics
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/持续更新/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                持续更新
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/web/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                web
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/api-hook/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                api_hook
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/reversecore/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                reversecore
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/Programing/" style=background:#879cff>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                Programing
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/cpp/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                cpp
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/Error-Correction/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                Error_Correction
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/WX/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                WX
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/Database/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                Database
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/vmp2/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                vmp2
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/BeaEngine/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                BeaEngine
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/neo4j/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                neo4j
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/CQL/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                CQL
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/virus/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                virus
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/pack/" style=background:#1bccbc>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                pack
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/antiDebug/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                antiDebug
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/practicalre/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                practicalre
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/hack/" style=background:#00bcd4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                hack
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/fps/" style=background:#ffa2c4>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                fps
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/kernel/" style='background:linear-gradient(to right, #fbc2eb 0%, #bbd4ff 100%)'>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                kernel
+            </a>
+        </span>
+        
+        
+        
+        <span>
+            <a href="/blog/tags/wkp/" style=background:#ff7d73>
+                <span class="icon">
+                    <a-icon type="tag" theme="filled" />
+                </span>
+                wkp
+            </a>
+        </span>
+        
+        
+    </div>
+    <div id="archives">
+        
+        <a-timeline>
+            <a-timeline-item color="#a5c2f5">
+                <a-card hoverable>
+                    <div class="item-time">2021/12/24</div>
+                    <a href="/blog/2021/12/24/wkp1-5/">
+                        <h3>《Windows Kernel Programming》 笔记 1~5 内核开发入门</h3>
+                    </a>
+                    <div class="info">
+                        
+                        <span class="category">
+                            <a href="/blog/categories/Windows">
+                                <span class="icon">
+                                    <a-icon type="book" theme="filled" />
+                                </span>
+                                Windows
+                            </a>
+                        </span>
+                        
+
+                        
+                        <span class="tags">
+                            <span class="icon">
+                                <a-icon type="tags" theme="filled" />
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/blog/tags/windows" style=color:#1bccbc>
+                                    windows
+                                </a>
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/blog/tags/note" style=color:#879cff>
+                                    note
+                                </a>
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/blog/tags/kernel" style=color:#879cff>
+                                    kernel
+                                </a>
+                            </span>
+                            
+                            <span class="tag">
+                                
+                                <a href="/blog/tags/wkp" style=color:#1bccbc>
+                                    wkp
+                                </a>
+                            </span>
+                            
+                        </span>
+                        
+                    </div>
+                </a-card>
+            </a-timeline-item>
+        </a-timeline>
+        
+    </div>
+    <script>
+        new Vue({
+            el: '#archives'
+        })
+    </script>
+</div>
+                     
+<footer id="footer">
+    <div class="footer-wrap">
+        <div>
+            © 2016 - 2022 BraveTroops
+            <span class="footer-icon">
+                <a-icon type="flag" theme="filled" /></span>
+            @御史神风
+        </div>
+        <div></div>
+        <div>Based on the <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo Engine</a> & <a
+                target="_blank" rel="noopener" href="https://github.com/korilin/hexo-theme-particle">Particle Theme</a></div>
+        
+    </div>
+
+</footer>
+
+<script src="/blog/js/highlight.min.js"></script>
+<script src="/blog/js/particle.js"></script>
+                </div>
+            </div>
+        </transition>
+    </div>
+
+    <script>
+    new Vue({
+        el: "#layout",
+        data: {
+            show_page: false,
+            onload_menu: false,
+            menu_show: false,
+            card_top: 100
+        },
+        created: function () {
+            var that = this
+            window.onload = function () {
+                that.show_page = true
+                document.getElementById("loadcontent").style.opacity = 0
+                setTimeout(function () {
+                    document.getElementById("loadleft").style.width = 0
+                    document.getElementById("loadright").style.width = 0
+                }, 300)
+                setTimeout(function () {
+                    document.getElementById("loading").style = "display:none"
+                }, 600)
+            }
+        },
+        mounted: function () {
+            var that = this
+            window.addEventListener('scroll', function (e) {
+                that.menu_show = false
+            })
+        },
+        methods: {
+            home_click: function () {
+                window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                });
+            }
+        }
+    })
+</script>
+
+</body>
+
+</html>
