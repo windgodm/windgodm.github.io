@@ -14,8 +14,8 @@
     
     <item>
       <title>《Windows Kernel Programming》 笔记 8~9 回调</title>
-      <link>https://windgodm.github.io/blog/post/wkp-8-9.html</link>
-      <guid>https://windgodm.github.io/blog/post/wkp-8-9.html</guid>
+      <link>https://windgodm.github.io/blog/post/wkp8-9.html</link>
+      <guid>https://windgodm.github.io/blog/post/wkp8-9.html</guid>
       <pubDate>Tue, 01 Mar 2022 04:00:00 GMT</pubDate>
       
       <description>《Windows Kernel Programming》 笔记 8~9 回调</description>
@@ -37,29 +37,34 @@
       <category domain="https://windgodm.github.io/blog/tags/wkp/">wkp</category>
       
       
-      <comments>https://windgodm.github.io/blog/post/wkp-8-9.html#disqus_thread</comments>
+      <comments>https://windgodm.github.io/blog/post/wkp8-9.html#disqus_thread</comments>
       
     </item>
     
     <item>
       <title>SFU Compilers class 笔记1</title>
-      <link>https://windgodm.github.io/blog/post/SFU-Compilers.html</link>
-      <guid>https://windgodm.github.io/blog/post/SFU-Compilers.html</guid>
+      <link>https://windgodm.github.io/blog/post/SFU-Compilers-1.html</link>
+      <guid>https://windgodm.github.io/blog/post/SFU-Compilers-1.html</guid>
       <pubDate>Sun, 27 Feb 2022 04:00:00 GMT</pubDate>
       
-        
-        
-      <description>&lt;h1 id=&quot;SFU-Compilers-class-笔记1&quot;&gt;&lt;a href=&quot;#SFU-Compilers-class-笔记1&quot; class=&quot;headerlink&quot; title=&quot;SFU Compilers class 笔记1&quot;&gt;&lt;/a&gt;SFU Compilers cla</description>
-        
+      <description>SFU Compilers class 笔记1</description>
       
       
       
-      <content:encoded><![CDATA[<h1 id="SFU-Compilers-class-笔记1"><a href="#SFU-Compilers-class-笔记1" class="headerlink" title="SFU Compilers class 笔记1"></a>SFU Compilers class 笔记1</h1><h2 id="Week-1-Introduction-to-Compilers"><a href="#Week-1-Introduction-to-Compilers" class="headerlink" title="Week 1 Introduction to Compilers"></a>Week 1 Introduction to Compilers</h2><h3 id="IN1-Evangelize-Compliers"><a href="#IN1-Evangelize-Compliers" class="headerlink" title="IN1 Evangelize Compliers"></a>IN1 Evangelize Compliers</h3><p>内容：</p><ul><li>Lexing-词法分析</li><li>Parsing-句法分析</li><li>Type analysis-类型分析</li><li>代码生成和优化</li></ul><p>分析下面这两段代码：</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">void send (char *to, char *from, int count)&#123;     while (count-- &gt; 0)    *to++ &#x3D; *from++;&#125;void send2 (char *to, char *from, int count)&#123;     int n &#x3D; (count+7)&#x2F;8;     switch (count % 8) &#123;     case 0: do &#123; *to++ &#x3D; *from++;     case 7:  *to++ &#x3D; *from++;     case 6:  *to++ &#x3D; *from++;     case 5:  *to++ &#x3D; *from++;     case 4:  *to++ &#x3D; *from++;     case 3:  *to++ &#x3D; *from++;     case 2:  *to++ &#x3D; *from++;     case 1:  *to++ &#x3D; *from++;    &#125; while(--n &gt; 0);     &#125;&#125;</code></pre><p>第二个switch实际上就是一个goto，跳到do-while循环里</p><h3 id="IN2-Trusting-Trust"><a href="#IN2-Trusting-Trust" class="headerlink" title="IN2 Trusting Trust"></a>IN2 Trusting Trust</h3><p>Quine是一个生成自身源代码的程序</p><p>c语言例子，源代码编译出来的可执行程序会输出源代码：</p><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;int main()&#123;char *c&#x3D;&quot;#include &lt;stdio.h&gt;%cint main()&#123;char *c&#x3D;%c%s%c;printf(c,10,34,c,34,10);&#125;%c&quot;;printf(c,10,34,c,34,10);&#125;</code></pre><p>编译器也有源代码，也需要编译器的编译器来把编译器的源代码编译成编译器</p><p>源代码 不等于 编译出来的可执行文件</p><p>编译器可以插入恶意二进制指令到编译结果中<br>这时编译器的源码是恶意的，而被编译程序的源码是正常的</p><p>更进一步的，编译器的编译器可能会恶意插入指令到编译器中<br>既编译器的源码是正常的，但编译出来的编译器被插入了恶意指令</p><h3 id="IN3-What-is-a-Compiler"><a href="#IN3-What-is-a-Compiler" class="headerlink" title="IN3 What is a Compiler"></a>IN3 What is a Compiler</h3><p><strong>编译器的需求</strong></p><ul><li>支持高级语言特性</li><li>易读的错误信息</li><li>编译速度</li><li>可执行文件速度</li></ul><p><strong>Bootstrapping a Compiler</strong></p><ul><li>先使用机器代码</li><li>制作语言的简单的子集，为其写编译器</li><li>用子集完成语言剩余部分</li><li>解释器：用低级语言写编译器（比如python解释器用C语言编写）</li><li>交叉编译</li></ul><p><strong>Modern challenges</strong></p><ul><li>指令并行性（乱序执行、分支预测）</li><li>并行算法（网格计算、多核计算机）</li><li>内存层级结构：寄存器、缓存、内存</li><li>新架构：GPU、量子计算机、DNA计算机</li><li>硬件级优化（终端内循环优化）</li></ul><h3 id="IN4-Stages-of-a-Compiler"><a href="#IN4-Stages-of-a-Compiler" class="headerlink" title="IN4 Stages of a Compiler"></a>IN4 Stages of a Compiler</h3><p><strong>Building a compiler</strong></p><p>编译器的编译器：</p><ul><li>yacc = yet another compiler compiler</li><li>bison = yacc的一个版本，GNU项目</li></ul><p><strong>Stages of a Compiler</strong></p><ul><li>分析（前端）<ul><li>词法分析（Lexing）</li><li>语法分析（Sytax、Parsing）</li><li>语义分析（类型检查）</li></ul></li><li>合成（后端）<ul><li>中间代码生成</li><li>代码优化</li><li>代码生成</li></ul></li></ul><h2 id="hw0"><a href="#hw0" class="headerlink" title="hw0"></a>hw0</h2><p>获取作业文件：</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git clone https:&#x2F;&#x2F;github.com&#x2F;anoopsarkar&#x2F;compilers-class-hw.git</code></pre><p><code>rmprefix</code>目录中有用于测试的python脚本</p><p><code>answer/default.cc</code>为未完成的作业，复制为<code>answer/rmprefix.cc</code>并完成</p><p><code>python zipout.py</code>：在测试集上运行，并得到结果</p><p><code>python check.py</code>：检测结果的正确率</p><p><strong>windows平台操作指南：</strong></p><p>在<code>answer</code>目录下使用powshell编译</p><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">g++ rmprefix.cc -o rmprefix.</code></pre><p>在<code>rmprefix</code>目录下使用wsl</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">python3 zipout.pypython3 check.py</code></pre>]]></content:encoded>
+      <content:encoded><![CDATA[<h1 id="SFU-Compilers-class-笔记1"><a href="#SFU-Compilers-class-笔记1" class="headerlink" title="SFU Compilers class 笔记1"></a>SFU Compilers class 笔记1</h1><p>week1 hw0</p><h2 id="Week-1-Introduction-to-Compilers"><a href="#Week-1-Introduction-to-Compilers" class="headerlink" title="Week 1 Introduction to Compilers"></a>Week 1 Introduction to Compilers</h2><h3 id="IN1-Evangelize-Compliers"><a href="#IN1-Evangelize-Compliers" class="headerlink" title="IN1 Evangelize Compliers"></a>IN1 Evangelize Compliers</h3><p>内容：</p><ul><li>Lexing-词法分析</li><li>Parsing-句法分析</li><li>Type analysis-类型分析</li><li>代码生成和优化</li></ul><p>分析下面这两段代码：</p><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp">void send (char *to, char *from, int count)&#123;     while (count-- &gt; 0)    *to++ &#x3D; *from++;&#125;void send2 (char *to, char *from, int count)&#123;     int n &#x3D; (count+7)&#x2F;8;     switch (count % 8) &#123;     case 0: do &#123; *to++ &#x3D; *from++;     case 7:  *to++ &#x3D; *from++;     case 6:  *to++ &#x3D; *from++;     case 5:  *to++ &#x3D; *from++;     case 4:  *to++ &#x3D; *from++;     case 3:  *to++ &#x3D; *from++;     case 2:  *to++ &#x3D; *from++;     case 1:  *to++ &#x3D; *from++;    &#125; while(--n &gt; 0);     &#125;&#125;</code></pre><p>第二个switch实际上就是一个goto，跳到do-while循环里</p><h3 id="IN2-Trusting-Trust"><a href="#IN2-Trusting-Trust" class="headerlink" title="IN2 Trusting Trust"></a>IN2 Trusting Trust</h3><p>Quine是一个生成自身源代码的程序</p><p>c语言例子，源代码编译出来的可执行程序会输出源代码：</p><pre class="line-numbers language-c" data-language="c"><code class="language-c">#include &lt;stdio.h&gt;int main()&#123;char *c&#x3D;&quot;#include &lt;stdio.h&gt;%cint main()&#123;char *c&#x3D;%c%s%c;printf(c,10,34,c,34,10);&#125;%c&quot;;printf(c,10,34,c,34,10);&#125;</code></pre><p>编译器也有源代码，也需要编译器的编译器来把编译器的源代码编译成编译器</p><p>源代码 不等于 编译出来的可执行文件</p><p>编译器可以插入恶意二进制指令到编译结果中<br>这时编译器的源码是恶意的，而被编译程序的源码是正常的</p><p>更进一步的，编译器的编译器可能会恶意插入指令到编译器中<br>既编译器的源码是正常的，但编译出来的编译器被插入了恶意指令</p><h3 id="IN3-What-is-a-Compiler"><a href="#IN3-What-is-a-Compiler" class="headerlink" title="IN3 What is a Compiler"></a>IN3 What is a Compiler</h3><p><strong>编译器的需求</strong></p><ul><li>支持高级语言特性</li><li>易读的错误信息</li><li>编译速度</li><li>可执行文件速度</li></ul><p><strong>Bootstrapping a Compiler</strong></p><ul><li>先使用机器代码</li><li>制作语言的简单的子集，为其写编译器</li><li>用子集完成语言剩余部分</li><li>解释器：用低级语言写编译器（比如python解释器用C语言编写）</li><li>交叉编译</li></ul><p><strong>Modern challenges</strong></p><ul><li>指令并行性（乱序执行、分支预测）</li><li>并行算法（网格计算、多核计算机）</li><li>内存层级结构：寄存器、缓存、内存</li><li>新架构：GPU、量子计算机、DNA计算机</li><li>硬件级优化（终端内循环优化）</li></ul><h3 id="IN4-Stages-of-a-Compiler"><a href="#IN4-Stages-of-a-Compiler" class="headerlink" title="IN4 Stages of a Compiler"></a>IN4 Stages of a Compiler</h3><p><strong>Building a compiler</strong></p><p>编译器的编译器：</p><ul><li>yacc = yet another compiler compiler</li><li>bison = yacc的一个版本，GNU项目</li></ul><p><strong>Stages of a Compiler</strong></p><ul><li>分析（前端）<ul><li>词法分析（Lexing）</li><li>语法分析（Sytax、Parsing）</li><li>语义分析（类型检查）</li></ul></li><li>合成（后端）<ul><li>中间代码生成</li><li>代码优化</li><li>代码生成</li></ul></li></ul><h2 id="hw0"><a href="#hw0" class="headerlink" title="hw0"></a>hw0</h2><h3 id="windows配置"><a href="#windows配置" class="headerlink" title="windows配置"></a>windows配置</h3><p>获取作业文件：</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">git clone https:&#x2F;&#x2F;github.com&#x2F;anoopsarkar&#x2F;compilers-class-hw.git</code></pre><p><code>rmprefix</code>目录中有用于测试的python脚本</p><p><code>answer/default.cc</code>为未完成的作业，复制为<code>answer/rmprefix.cc</code>并完成</p><p><code>python zipout.py</code>：在测试集上运行，并得到结果</p><p><code>python check.py</code>：检测结果的正确率</p><p><strong>windows平台操作指南：</strong></p><p>在<code>answer</code>目录下使用powshell编译</p><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">g++ rmprefix.cc -o rmprefix.</code></pre><p>在<code>rmprefix</code>目录下使用wsl</p><pre class="line-numbers language-sh" data-language="sh"><code class="language-sh">python3 zipout.pypython3 check.py</code></pre><h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>解决方案1：</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">line.erase(0, line.find_first_not_of(&#39;\t&#39;));line.erase(0, line.find_first_not_of(&#39; &#39;));</code></pre><p>解决方案2：</p><pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int fn &#x3D; 0;for (fn &#x3D; 0; line[fn]; fn++)&#123;    if(line[fn] &#x3D;&#x3D; &#39; &#39;)    continue;    if(line[fn] &#x3D;&#x3D; &#39;\t&#39;)    continue;    break;&#125;line.erase(0, fn);</code></pre>]]></content:encoded>
       
       
+      <category domain="https://windgodm.github.io/blog/categories/CS/">CS</category>
       
       
-      <comments>https://windgodm.github.io/blog/post/SFU-Compilers.html#disqus_thread</comments>
+      <category domain="https://windgodm.github.io/blog/tags/note/">note</category>
+      
+      <category domain="https://windgodm.github.io/blog/tags/cs/">cs</category>
+      
+      <category domain="https://windgodm.github.io/blog/tags/compiler/">compiler</category>
+      
+      
+      <comments>https://windgodm.github.io/blog/post/SFU-Compilers-1.html#disqus_thread</comments>
       
     </item>
     
